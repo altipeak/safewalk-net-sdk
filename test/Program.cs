@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 
 using safewalk;
@@ -31,7 +27,7 @@ namespace test
         private static void testSafewalkClient(String username, String password) {
         	serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
             SafewalkClient client = new SafewalkClientImpl(serverConnectivityHelper);
-            AuthenticationResponse response1 = client.authenticate(AUTHENTICATION_API_ACCESS_TOKEN, username, password);
+            SafewalkRespose response1 = client.authenticate(AUTHENTICATION_API_ACCESS_TOKEN, username, password);
             Console.WriteLine("AUTHENTICATION RESPONSE : " + response1);
         }
         

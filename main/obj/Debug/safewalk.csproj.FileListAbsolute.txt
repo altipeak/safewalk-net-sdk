@@ -16,3 +16,7 @@ D:\git\net\safewalk-net-sdk\main\bin\Debug\System.Json.xml
 D:\git\net\safewalk-net-sdk\main\obj\Debug\safewalk.csprojResolveAssemblyReference.cache
 D:\git\net\safewalk-net-sdk\main\obj\Debug\main.dll
 D:\git\net\safewalk-net-sdk\main\obj\Debug\main.pdb
+E:\AltiPeak\Safewalk\applications\safewalk-net-sdk\main\bin\Debug\main.dll
+E:\AltiPeak\Safewalk\applications\safewalk-net-sdk\main\bin\Debug\main.pdb
+E:\AltiPeak\Safewalk\applications\safewalk-net-sdk\main\obj\Debug\main.dll
+E:\AltiPeak\Safewalk\applications\safewalk-net-sdk\main\obj\Debug\main.pdb
