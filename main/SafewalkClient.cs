@@ -24,7 +24,7 @@ namespace safewalk
 
 		AssociateTokenResponse AssociateToken(String accessToken, String username, DeviceType deviceType);
 
-		AssociateTokenResponse AssociateToken(String accessToken, String username, DeviceType deviceType, Boolean sendRegistrationCode, Boolean sendDownloadLinks);
+		AssociateTokenResponse AssociateToken(String accessToken, String username, DeviceType deviceType, Boolean? sendRegistrationCode, Boolean? sendDownloadLinks);
 
 		GetTokenAssociationsResponse GetTokenAssociations(String accessToken, String username);
 
