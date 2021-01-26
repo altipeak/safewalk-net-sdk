@@ -75,7 +75,8 @@ namespace safewalk
 			this.errors = new Dictionary<string, List<string>>();
 		}
     
-		public AuthenticationResponse(int httpCode, Dictionary<String, List<String>> errors)
+		public AuthenticationResponse(int httpCode
+			, Dictionary<String, List<String>> errors)
 		{
 			this.code = null;
 			this.transactionId = null;

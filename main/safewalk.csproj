@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateUserResponse.cs" />
     <Compile Include="helper\ConnectivityException.cs" />
     <Compile Include="helper\Response.cs" />
     <Compile Include="helper\ServerConnectivityHelper.cs" />

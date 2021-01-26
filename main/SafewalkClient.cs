@@ -11,6 +11,8 @@ namespace safewalk
 		AuthenticationResponse authenticate(String accessToken, String username, String password) ;
     
 		AuthenticationResponse authenticate(String accessToken, String username, String password, String transactionId) ;
-    
+
+		CreateUserResponse createUser(String accessToken, String username, String password, String firstName, String lastName, String mobilePhone, String email, String parent) ;
+
 	}
 }
