@@ -59,6 +59,8 @@ namespace safewalk.helper
 				var certificate = new X509Certificate();
 				string _path = this.host + ":" + this.port + path; 
 				ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
+				ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
 				var request = (HttpWebRequest)WebRequest.Create(_path);
 				request.ClientCertificates.Add(certificate);
 				switch (method) {

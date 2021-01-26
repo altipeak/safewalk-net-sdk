@@ -11,24 +11,20 @@ namespace safewalk
         LDAP,
         DB,
     }
-    public class CreateUserResponse
+    public class CreateUserResponse : BaseResponse
     {
         #region "vars"
         private readonly String dbMobilePhone;
         private readonly String dbEmail;
         private readonly String ldapMobilePhone;
         private readonly String ldapEmail;
-        private readonly UserStorage userStorage;
+        private readonly UserStorage? userStorage;
         private readonly String firstName;
         private readonly String lastName;
         private readonly String dn;
         private readonly String username;
     
-        private readonly int httpCode;
-
-        private Dictionary<String, List<String>> errors;
-
-        private const String SEPARATOR = " | ";
+        
         #endregion
 
         #region "constr"
@@ -41,7 +37,7 @@ namespace safewalk
                             , String dbEmail
                             , String ldapMobilePhone
                             , String ldapEmail
-                            , UserStorage? userStorage)
+                            , UserStorage? userStorage) : base(httpCode)
         {
             this.dbMobilePhone = dbMobilePhone;
             this.dbEmail = dbEmail;
@@ -56,11 +52,11 @@ namespace safewalk
             this.dn = dn;
             this.username = username;
             this.httpCode = httpCode;
-            this.errors = new Dictionary<string, List<string>>();
+            
         }
 
         public CreateUserResponse(int httpCode
-            , Dictionary<String, List<String>> errors)
+            , Dictionary<String, List<String>> errors) : base(httpCode, errors)
         {
             this.dbMobilePhone = null;
             this.dbEmail = null;
@@ -70,9 +66,7 @@ namespace safewalk
             this.firstName = null;
             this.lastName = null;
             this.dn = null;
-            this.username = null;
-            this.httpCode = httpCode;
-            this.errors = errors;
+            this.username = null;  
         }
         #endregion
 
@@ -80,8 +74,7 @@ namespace safewalk
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            if (this.code != null)
-                sb.Append(this.httpCode.ToString()).Append(SEPARATOR);
+            sb.Append(this.httpCode.ToString()).Append(SEPARATOR);
           
             if (this.httpCode == 201)
             {
@@ -124,14 +117,10 @@ namespace safewalk
                     sb.Append("]").Append(SEPARATOR);
                 }
             }
-            return sb.toString();
+            return sb.ToString();
         }
 
-        public Dictionary<String, List<String>> getErrors()
-        {
-            return errors;
-        }
-
+       
         /**
         * @return the dbMobilePhone
         */
@@ -167,7 +156,7 @@ namespace safewalk
         /**
          * @return the userStorage
          */
-        public UserStorage getUserStorage()
+        public UserStorage? getUserStorage()
         {
             return userStorage;
         }

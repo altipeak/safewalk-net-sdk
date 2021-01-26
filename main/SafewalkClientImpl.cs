@@ -68,12 +68,12 @@ namespace safewalk
 		#endregion
 		
 		#region "publics"
-		public AuthenticationResponse authenticate(String accessToken, String username, String password)
+		public AuthenticationResponse Authenticate(String accessToken, String username, String password)
 		{
-			return this.authenticate(accessToken, username, password, null);
+			return this.Authenticate(accessToken, username, password, null);
 		}
          
-		public AuthenticationResponse authenticate(String accessToken, String username, String password, String transactionId)
+		public AuthenticationResponse Authenticate(String accessToken, String username, String password, String transactionId)
 		{
 			var parameters = new Dictionary<String, String>() { 
 				{ "username", username },
@@ -110,7 +110,7 @@ namespace safewalk
             
 		}
 
-		public CreateUserResponse createUser(string accessToken, string username, string password, string firstName, string lastName, string mobilePhone, string email, string parent)
+		public CreateUserResponse CreateUser(string accessToken, string username, string password, string firstName, string lastName, string mobilePhone, string email, string parent)
 		{
 			var parameters = new Dictionary<String, String>() {
 				{ "username", username },
@@ -152,6 +152,250 @@ namespace safewalk
             {
 				return new CreateUserResponse(response.getResponseCode(), getErrors(response.getContent()));
 			}				
+		}
+
+		public UpdateUserResponse UpdateUser(String accessToken, String username, String mobilePhone, String email)
+		{
+			var parameters = new Dictionary<String, String>() {
+				{"mobile_phone", mobilePhone },
+				{"email", email },
+
+			};
+
+			var headers = new Dictionary<String, String>() {
+				{ "Authorization", "Bearer " + accessToken }
+			};
+
+			Response response = serverConnetivityHelper.put(String.Format("/api/v1/admin/user/%s/?format=json", username), parameters, headers);
+
+			if (response.getResponseCode() == 200)
+			{
+				byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
+				var stream = new MemoryStream(byteArray);
+
+				return new UpdateUserResponse(response.getResponseCode());
+			}
+			else
+            {
+				return new UpdateUserResponse(response.getResponseCode(), getErrors(response.getContent()));
+			}
+		}
+
+		public GetUserResponse GetUser(String accessToken, String username)
+        {
+			var parameters = new Dictionary<String, String>() {
+				{"format", "json" },
+			};
+
+			var headers = new Dictionary<String, String>() {
+				{ "Authorization", "Bearer " + accessToken }
+			};
+
+			Response response = serverConnetivityHelper.get(String.Format( "/api/v1/admin/user/%s/?format=json", username), parameters, headers);
+
+			if (response.getResponseCode() == 200)
+			{
+				byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
+				var stream = new MemoryStream(byteArray);
+
+				var jsonResponse = (JsonObject)JsonValue.Load(stream);
+
+				return new GetUserResponse(
+					response.getResponseCode()
+					, this.getString(jsonResponse, JSON_GET_USER_USERNAME_FIELD)
+					, this.getString(jsonResponse, JSON_GET_USER_FIRST_NAME_FIELD)
+					, this.getString(jsonResponse, JSON_GET_USER_LAST_NAME_FIELD)
+					, this.getString(jsonResponse, JSON_GET_USER_DN_FIELD)
+					, this.getString(jsonResponse, JSON_GET_USER_DB_MOBILE_PHONE_FIELD)
+					, this.getString(jsonResponse, JSON_GET_USER_DB_EMAIL_FIELD)
+					, this.getString(jsonResponse, JSON_GET_USER_LDAP_MOBILE_PHONE_FIELD)
+					, this.getString(jsonResponse, JSON_GET_USER_LDAP_EMAIL_FIELD)
+					, (this.getString(jsonResponse, JSON_GET_USER_STORAGE_FIELD) != null ? this.getUserStorage(jsonResponse, JSON_GET_USER_STORAGE_FIELD) : null)
+					, this.getBoolean(jsonResponse, JSON_GET_USER_IS_LOCKED_FIELD)
+					);
+			}
+			else
+			{
+				return new GetUserResponse(response.getResponseCode(), getErrors(response.getContent()));
+			}
+		}
+		
+		public DeleteUserResponse DeleteUser(String accessToken, String username)
+        {
+			var parameters = new Dictionary<String, String>() {				 
+			};
+
+			var headers = new Dictionary<String, String>() {
+				{ "Authorization", "Bearer " + accessToken }
+			};
+
+			Response response = serverConnetivityHelper.delete(String.Format("/api/v1/admin/user/%s/", username), parameters, headers);
+			if (response.getResponseCode() == 204)
+			{
+				return new DeleteUserResponse(response.getResponseCode());
+			}
+			else
+			{
+				return new DeleteUserResponse(response.getResponseCode(), getErrors(response.getContent()));
+			}
+		}
+
+		public SetStaticPasswordResponse SetStaticPassword(String accessToken, String username, String password)
+        {
+			var parameters = new Dictionary<String, String>() {
+				{ "username", username },
+				{ "password", password },
+			};
+
+			var headers = new Dictionary<String, String>() {
+				{ "Authorization", "Bearer " + accessToken }
+			};
+
+			Response response = serverConnetivityHelper.post("/api/v1/admin/staticpassword/set/", parameters, headers);
+			if (response.getResponseCode() == 200)
+			{
+				return new SetStaticPasswordResponse(response.getResponseCode());
+			}
+			else
+			{
+				return new SetStaticPasswordResponse(response.getResponseCode(), getErrors(response.getContent()));
+			}
+		}
+
+		public AssociateTokenResponse AssociateToken(String accessToken, String username, DeviceType deviceType)
+        {
+			return AssociateToken(accessToken, username, deviceType, null, null);
+		}
+
+		public AssociateTokenResponse AssociateToken(String accessToken, String username, DeviceType deviceType, Boolean? sendRegistrationCode, Boolean? sendDownloadLinks)
+		{
+			var parameters = new Dictionary<String, String>() {
+				{"username", username },
+				{"device_type", deviceType.getCode() },
+			};
+
+			if (sendDownloadLinks != null)
+			{
+				parameters.Add("send_download_links", sendDownloadLinks.ToString());
+			}
+			if (sendRegistrationCode != null)
+			{
+				parameters.Add("send_registration_code", sendRegistrationCode.ToString());
+			}
+
+			var headers = new Dictionary<String, String>() {
+					{ "Authorization", "Bearer " + accessToken }
+				};
+			Response response = serverConnetivityHelper.post(String.Format("/api/v1/admin/user/%s/devices/?format=json", username), parameters, headers);
+
+			if (response.getResponseCode() == 200)
+			{
+				byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
+				var stream = new MemoryStream(byteArray);
+
+				var jsonResponse = (JsonObject)JsonValue.Load(stream);
+
+				return new AssociateTokenResponse(response.getResponseCode()
+											, this.getBoolean(jsonResponse, JSON_ASSOCIATE_TOKEN_FAIL_TO_SEND_REG_CODE_FIELD)
+											, this.getBoolean(jsonResponse, JSON_ASSOCIATE_TOKEN_FAIL_TO_SEND_DOWNLOAD_LINKS_FIELD));
+			}
+			else
+			{
+				return new AssociateTokenResponse(response.getResponseCode(), getErrors(response.getContent()));
+			}
+
+		}
+
+		public GetTokenAssociationsResponse GetTokenAssociations(String accessToken, String username)
+		{
+			var parameters = new Dictionary<String, String>() {
+				{"format", "json" },
+			};
+
+			var headers = new Dictionary<String, String>() {
+				{ "Authorization", "Bearer " + accessToken }
+			};
+
+			Response response = serverConnetivityHelper.get(String.Format("/api/v1/admin/user/%s/devices/", username), parameters, headers);
+
+			if (response.getResponseCode() == 200)
+			{
+				byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
+				var stream = new MemoryStream(byteArray);
+
+				var jsonArray = (JsonArray)JsonValue.Load(stream);
+
+				List<TokenAssociation> associations = new List<TokenAssociation>();
+
+				for (int i = 0; jsonArray.Count>0; i++ )
+                {
+					var json = (JsonObject)jsonArray[i];
+					associations.Add(new TokenAssociation(
+						  this.getString(json, JSON_GET_TOKEN_ASSOCIATIONS_DEVICE_TYPE_FIELD)
+						, this.getString(json, JSON_GET_TOKEN_ASSOCIATIONS_SERIAL_NUMBER_FIELD)
+						, this.getBoolean(json, JSON_GET_TOKEN_ASSOCIATIONS_CONFIRMED_FIELD)
+						, this.getBoolean(json, JSON_GET_TOKEN_ASSOCIATIONS_PASSWORD_REQUIRED_FIELD)));
+				}
+				return new GetTokenAssociationsResponse(response.getResponseCode(), associations);
+			}
+			else
+			{
+				return new GetTokenAssociationsResponse(response.getResponseCode(), getErrors(response.getContent()));
+			}
+		}
+
+		public DeleteTokenAssociation DeleteTokenAssociation(String accessToken, String username, DeviceType deviceType, String serialNumber)
+        {
+			var parameters = new Dictionary<String, String>() {
+				{"format", "json" },
+			};
+
+			var headers = new Dictionary<String, String>() {
+				{ "Authorization", "Bearer " + accessToken }
+			};
+
+			Response response = serverConnetivityHelper.delete(String.Format("/api/v1/admin/user/%s/devices/%s/%s/", username, deviceType.getCode(), serialNumber), parameters, headers);
+			if (response.getResponseCode() == 200 || response.getResponseCode() == 400)
+			{
+				byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
+				var stream = new MemoryStream(byteArray);
+
+				var jsonResponse = (JsonObject)JsonValue.Load(stream);
+
+				return new DeleteTokenAssociation(response.getResponseCode(), this.getString(jsonResponse, JSON_DELETE_TOKEN_ASSOCIATION_CODE_FIELD));
+			}
+			else
+			{
+				return new DeleteTokenAssociation(response.getResponseCode(), getErrors(response.getContent()));
+			}
+		}
+
+		public CreateRegistrationCode CreateRegistrationCode(String accessToken, String username)
+        {
+			var parameters = new Dictionary<String, String>() {
+			};
+
+			var headers = new Dictionary<String, String>() {
+				{ "Authorization", "Bearer " + accessToken }
+			};
+
+			Response response = serverConnetivityHelper.post(String.Format("/api/v1/admin/user/%s/registrationtoken/?format=json", username), parameters, headers);
+			if (response.getResponseCode() == 200)
+			{
+				return new CreateRegistrationCode(response.getResponseCode());
+			}
+			else if (response.getResponseCode() == 400)
+			{
+				byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
+				var stream = new MemoryStream(byteArray);
+
+				var jsonResponse = (JsonObject)JsonValue.Load(stream);
+				return new CreateRegistrationCode(response.getResponseCode(), getErrors(response.getContent()), this.getString(jsonResponse, JSON_CREATE_REGISTRATION_CODE_CODE_FIELD));
+			}
+			else
+			{
+				return new CreateRegistrationCode(response.getResponseCode(), getErrors(response.getContent()), null);
+			}
 		}
 
 		#endregion
