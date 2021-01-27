@@ -15,6 +15,8 @@ namespace test
 
         private static readonly String HOST = settings["HOST"];
         private static readonly long   PORT = long.Parse(settings["PORT"]);
+        private static readonly bool  SET_BYPASS_SSL_CERTIFICATE = bool.Parse(settings["setBypassSSLCertificate"]);
+        
         private static readonly String AUTHENTICATION_API_ACCESS_TOKEN = settings["AUTHENTICATION_API_ACCESS_TOKEN"];
         private static readonly String ADMIN_API_ACCESS_TOKEN = settings["ADMIN_API_ACCESS_TOKEN"];
         private static readonly String INTERNAL_USERNAME = settings["INTERNAL_USERNAME"];
@@ -62,7 +64,7 @@ namespace test
 
             Console.WriteLine("Standard Authentication PROCESS : start");
 
-            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
+            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT, SET_BYPASS_SSL_CERTIFICATE);
             SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
             AuthenticationResponse response1 = client.Authenticate(username, password);
             Console.WriteLine("Standard Authentication RESPONSE : " + response1);
@@ -74,7 +76,7 @@ namespace test
 
             Console.WriteLine("External Authentication PROCESS : start");
 
-            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
+            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT, SET_BYPASS_SSL_CERTIFICATE);
             SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
             AuthenticationResponse response1 = client.ExternalAuthenticate(username);
             Console.WriteLine("External Authentication RESPONSE : " + response1);
@@ -86,7 +88,7 @@ namespace test
 
             Console.WriteLine("Generate Challenge - 1) Session Key PROCESS : start");
 
-            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
+            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT, SET_BYPASS_SSL_CERTIFICATE);
             SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
             SessionKeyResponse response1 = client.CreateSessionKeyChallenge();
             Console.WriteLine("Generate Challenge - Session Key RESPONSE : " + response1);
@@ -102,7 +104,7 @@ namespace test
 
             Console.WriteLine("Push signature PROCESS : start");
 
-            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
+            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT, SET_BYPASS_SSL_CERTIFICATE);
             SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
             SignatureResponse response1 = client.SendPushSignature(username, password, _hash, _data, title, body);
             Console.WriteLine("Push signature RESPONSE : " + response1);

@@ -22,13 +22,21 @@ namespace safewalk.helper
     
 		private readonly String host;
 		private readonly long port;
-    
+		private readonly bool setBypassSSLCertificate;
+
 		public ServerConnectivityHelper(String host, long port)
 		{
 			this.host = host;
 			this.port = port;
+			this.setBypassSSLCertificate = false;
 		}
-      
+
+		public ServerConnectivityHelper(String host, long port, bool byPassSSLCertificate)
+		{
+			this.host = host;
+			this.port = port;
+			this.setBypassSSLCertificate = byPassSSLCertificate;
+		}
 		#region "Publics"
 		public Response post(String path, Dictionary<string,string> parameters, Dictionary<string,string> headers) 
 		{
@@ -55,14 +63,25 @@ namespace safewalk.helper
 		private Response doRequest(String method, String path, Dictionary<string,string> parameters,  
 			Dictionary<string,string> headers)
 		{
-			try {	        
-				var certificate = new X509Certificate();
-				string _path = this.host + ":" + this.port + path; 
-				ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
-				ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+			try {
+				string _path = this.host + ":" + this.port + path;
 
-				var request = (HttpWebRequest)WebRequest.Create(_path);
-				request.ClientCertificates.Add(certificate);
+				HttpWebRequest request;
+
+				if (this.setBypassSSLCertificate)
+                {
+					var certificate = new X509Certificate();
+					ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
+					ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+					request = (HttpWebRequest)WebRequest.Create(_path);
+					request.ClientCertificates.Add(certificate);
+                }
+				else
+                {	
+					request = (HttpWebRequest)WebRequest.Create(_path);
+				}
+				
 				switch (method) {
 					case "POST":
 						request.Method = WebRequestMethods.Http.Post;
