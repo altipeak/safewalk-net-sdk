@@ -36,8 +36,16 @@ namespace safewalk
         {
             var sb = new StringBuilder();
             sb.Append(this.httpCode.ToString()).Append(SEPARATOR);
-            sb.Append(this.challenge.ToString()).Append(SEPARATOR);
-            sb.Append(this.purpose.ToString()).Append(SEPARATOR);
+
+            if (this.challenge != null)
+                sb.Append(this.challenge.ToString()).Append(SEPARATOR);
+            else
+                sb.Append(SEPARATOR);
+
+            if (this.purpose != null)
+                sb.Append(this.purpose.ToString()).Append(SEPARATOR);
+            else
+                sb.Append(SEPARATOR);
 
             foreach (KeyValuePair<String, List<String>> error in this.errors)
             {

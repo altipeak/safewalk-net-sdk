@@ -27,23 +27,25 @@ namespace safewalk
 		#endregion
 
 		#region "vars"
-		private ServerConnectivityHelper ServerConnetivityHelper;
+		private IServerConnectivityHelper ServerConnetivityHelper;
+		private String AccessToken;
 		#endregion
 
 		#region "constr"
-		public SafewalkAuthClient(ServerConnectivityHelper serverConnetivityHelper)
+		public SafewalkAuthClient(IServerConnectivityHelper serverConnetivityHelper, String accessToken)
 		{
 			this.ServerConnetivityHelper = serverConnetivityHelper;
+			this.AccessToken = accessToken;
 		}
 		#endregion
 
 		#region "publics"
-		public AuthenticationResponse Authenticate(String accessToken, String username, String password)
+		public AuthenticationResponse Authenticate(String username, String password)
 		{
-			return this.Authenticate(accessToken, username, password, null);
+			return this.Authenticate(username, password, null);
 		}
 
-		public AuthenticationResponse Authenticate(String accessToken, String username, String password, String transactionId)
+		public AuthenticationResponse Authenticate(String username, String password, String transactionId)
 		{
 			var parameters = new Dictionary<String, String>() {
 				{ "username", username },
@@ -53,7 +55,7 @@ namespace safewalk
 
 
 			var headers = new Dictionary<String, String>() {
-				{ "Authorization", "Bearer " + accessToken }
+				{ "Authorization", "Bearer " + AccessToken }
 			};
 
 			Response response = ServerConnetivityHelper.post("/api/v1/auth/authenticate/?format=json", parameters, headers);
@@ -83,14 +85,11 @@ namespace safewalk
 
 		}
 
-		public ExternalAuthenticationResponse ExternalAuthenticate(String accessToken, String username)
+		public ExternalAuthenticationResponse ExternalAuthenticate(String username)
         {
-			return this.ExternalAuthenticate(accessToken, username, null);
+			return this.ExternalAuthenticate(username, null);
         }
-		public ExternalAuthenticationResponse ExternalAuthenticate(
-			  String accessToken
-			, String username 
-			, String transactionId)
+		public ExternalAuthenticationResponse ExternalAuthenticate(String username, String transactionId)
 		{
 			var parameters = new Dictionary<String, String>() {
 				{ "username", username }, 
@@ -99,7 +98,7 @@ namespace safewalk
 
 
 			var headers = new Dictionary<String, String>() {
-				{ "Authorization", "Bearer " + accessToken }
+				{ "Authorization", "Bearer " + AccessToken }
 			};
 
 			Response response = ServerConnetivityHelper.post("/api/v1/auth/pswdcheckedauth/?format=json", parameters, headers);
@@ -129,20 +128,19 @@ namespace safewalk
 		}
 
 
-		public SessionKeyResponse CreateSessionKeyChallenge(String accessToken, String username) 
+		public SessionKeyResponse CreateSessionKeyChallenge() 
 		{
-			return this.CreateSessionKeyChallenge(accessToken, username, null);
+			return this.CreateSessionKeyChallenge(null);
 		}
-		public SessionKeyResponse CreateSessionKeyChallenge(String accessToken, String username,  String transactionId)
+		public SessionKeyResponse CreateSessionKeyChallenge(String transactionId)
         {
 			var parameters = new Dictionary<String, String>() {
-				{ "username", username }, 
-				{ "transaction_id", transactionId }
+				{ "transaction_id", transactionId },
 			};
 
 
 			var headers = new Dictionary<String, String>() {
-				{ "Authorization", "Bearer " + accessToken }
+				{ "Authorization", "Bearer " + AccessToken }
 			};
 
 			Response response = ServerConnetivityHelper.post("/api/v1/auth/session_key/?format=json", parameters, headers);
@@ -167,24 +165,21 @@ namespace safewalk
 			}
 		}
 
-		public SessionKeyVerificationResponse VerifySessionKeyStatus(String accessToken, String username, String sessionKey)
+		public SessionKeyVerificationResponse VerifySessionKeyStatus(String sessionKey)
         {
-			return this.VerifySessionKeyStatus(accessToken, username, sessionKey, null);
+			return this.VerifySessionKeyStatus(sessionKey, null);
 		}
 		public SessionKeyVerificationResponse VerifySessionKeyStatus(
-			String accessToken
-			, String username
-			, String sessionKey
+			 String sessionKey
 			, String transactionId)
 		{
 			var parameters = new Dictionary<String, String>() {
-				{ "username", username },
 				{ "transaction_id", transactionId },
 			};
 
 
 			var headers = new Dictionary<String, String>() {
-				{ "Authorization", "Bearer " + accessToken }
+				{ "Authorization", "Bearer " + AccessToken }
 			};
 
 			var link = "/api/v1/auth/session_key/" + sessionKey + "/?format=json";
@@ -210,8 +205,7 @@ namespace safewalk
 		}
 
 		public SignatureResponse SendPushSignature(
-			String accessToken
-			, String username
+			 String username
 			, String password
 			, String _hash
 			, String _data
@@ -228,7 +222,7 @@ namespace safewalk
 			};
 
 			var headers = new Dictionary<String, String>() {
-				{ "Authorization", "Bearer " + accessToken }
+				{ "Authorization", "Bearer " + AccessToken }
 			};
 
 			Response response = ServerConnetivityHelper.post("/api/v1/auth/push_signature/", parameters, headers);

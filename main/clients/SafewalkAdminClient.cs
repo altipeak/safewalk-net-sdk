@@ -49,11 +49,11 @@ namespace safewalk
         #endregion
 
         #region "vars"
-        private ServerConnectivityHelper ServerConnetivityHelper;
+        private IServerConnectivityHelper ServerConnetivityHelper;
         #endregion
 
         #region "constr"
-        public SafewalkAdminClient(ServerConnectivityHelper serverConnetivityHelper)
+        public SafewalkAdminClient(IServerConnectivityHelper serverConnetivityHelper)
 		{
 			this.ServerConnetivityHelper = serverConnetivityHelper;
 		}

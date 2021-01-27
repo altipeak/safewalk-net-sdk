@@ -56,8 +56,8 @@
     <Compile Include="responses\CreateUserResponse.cs" />
     <Compile Include="helper\ConnectivityException.cs" />
     <Compile Include="helper\Response.cs" />
+    <Compile Include="helper\IServerConnectivityHelper.cs" />
     <Compile Include="helper\ServerConnectivityHelper.cs" />
-    <Compile Include="helper\ServerConnectivityHelperImpl.cs" />
     <Compile Include="responses\DeleteTokenAssociation.cs" />
     <Compile Include="responses\DeleteUserResponse.cs" />
     <Compile Include="responses\ExternalAuthenticationResponse.cs" />

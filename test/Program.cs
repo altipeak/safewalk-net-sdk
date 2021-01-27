@@ -46,7 +46,7 @@ namespace test
         private static readonly string BODY = settings["body"];
 
 
-        static private ServerConnectivityHelper serverConnectivityHelper ;    
+        static private IServerConnectivityHelper serverConnectivityHelper ;    
         static void Main(string[] args)
         {
             /*auth client */
@@ -62,9 +62,9 @@ namespace test
 
             Console.WriteLine("Standard Authentication PROCESS : start");
 
-            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper);
-            AuthenticationResponse response1 = client.Authenticate(AUTHENTICATION_API_ACCESS_TOKEN, username, password);
+            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
+            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
+            AuthenticationResponse response1 = client.Authenticate(username, password);
             Console.WriteLine("Standard Authentication RESPONSE : " + response1);
             Console.WriteLine("Standard Authentication PROCESS : end");
         }
@@ -74,9 +74,9 @@ namespace test
 
             Console.WriteLine("External Authentication PROCESS : start");
 
-            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper);
-            AuthenticationResponse response1 = client.ExternalAuthenticate(AUTHENTICATION_API_ACCESS_TOKEN, username);
+            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
+            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
+            AuthenticationResponse response1 = client.ExternalAuthenticate(username);
             Console.WriteLine("External Authentication RESPONSE : " + response1);
             Console.WriteLine("External Authentication PROCESS : end");
         }
@@ -86,13 +86,13 @@ namespace test
 
             Console.WriteLine("Generate Challenge - 1) Session Key PROCESS : start");
 
-            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper);
-            SessionKeyResponse response1 = client.CreateSessionKeyChallenge(AUTHENTICATION_API_ACCESS_TOKEN, username);
+            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
+            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
+            SessionKeyResponse response1 = client.CreateSessionKeyChallenge();
             Console.WriteLine("Generate Challenge - Session Key RESPONSE : " + response1);
 
             Console.WriteLine("\nGenerate Challenge - 2) Verify Session Key: start");
-            SessionKeyVerificationResponse response2 = client.VerifySessionKeyStatus(AUTHENTICATION_API_ACCESS_TOKEN, username, response1.GetChallenge());
+            SessionKeyVerificationResponse response2 = client.VerifySessionKeyStatus(response1.GetChallenge());
             Console.WriteLine("Generate Challenge - Session Key RESPONSE : " + response2);
             Console.WriteLine("Generate Challenge PROCESS : end");
         }
@@ -102,9 +102,9 @@ namespace test
 
             Console.WriteLine("Push signature PROCESS : start");
 
-            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper);
-            SignatureResponse response1 = client.SendPushSignature(AUTHENTICATION_API_ACCESS_TOKEN, username, password, _hash, _data, title, body);
+            serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
+            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
+            SignatureResponse response1 = client.SendPushSignature(username, password, _hash, _data, title, body);
             Console.WriteLine("Push signature RESPONSE : " + response1);
             Console.WriteLine("Push signature PROCESS : end");
         }

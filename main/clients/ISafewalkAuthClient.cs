@@ -15,11 +15,10 @@ namespace safewalk
 		/// If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order
 		/// If the given username has the format of "username@domain"; the user will be created in the LDAP with the given domain.
 		/// </summary>
-		/// <param name="accessToken"></param>
 		/// <param name="username"></param>
 		/// <param name="password"></param>
 		/// <returns></returns>
-		AuthenticationResponse Authenticate(String accessToken, String username, String password);
+		AuthenticationResponse Authenticate(String username, String password);
 
 		/// <summary>
 		/// Authenticates the user with the given credentials.
@@ -28,12 +27,11 @@ namespace safewalk
 		/// If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order
 		/// If the given username has the format of "username@domain"; the user will be created in the LDAP with the given domain.
 		/// </summary>
-		/// <param name="accessToken"></param>
 		/// <param name="username"></param>
 		/// <param name="password"></param>
 		/// <param name="transactionId"></param>
 		/// <returns></returns>
-		AuthenticationResponse Authenticate(String accessToken, String username, String password, String transactionId);
+		AuthenticationResponse Authenticate(String username, String password, String transactionId);
 
 		/// <summary>
 		/// Standard authentication for external users.
@@ -42,10 +40,9 @@ namespace safewalk
 		/// If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order
 		/// If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
 		/// </summary>
-		/// <param name="accessToken"></param>
 		/// <param name="username"></param>
 		/// <returns></returns>
-		ExternalAuthenticationResponse ExternalAuthenticate(String accessToken, String username);
+		ExternalAuthenticationResponse ExternalAuthenticate( String username);
 
 		/// <summary>
 		/// Standard authentication for external users.
@@ -54,11 +51,10 @@ namespace safewalk
 		/// If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order
 		/// If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
 		/// </summary>
-		/// <param name="accessToken"></param>
 		/// <param name="username"></param> 
 		/// <param name="transactionId"></param>
 		/// <returns></returns>
-		ExternalAuthenticationResponse ExternalAuthenticate(String accessToken, String username, String transactionId);
+		ExternalAuthenticationResponse ExternalAuthenticate(String username, String transactionId);
 
 		/* QR Authentication */
 		/* step 1 */
@@ -69,10 +65,8 @@ namespace safewalk
 		/// If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
 		/// If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
 		/// </summary>
-		/// <param name="accessToken"></param>
-		/// <param name="username"></param>
 		/// <returns></returns>
-		SessionKeyResponse CreateSessionKeyChallenge(String accessToken, String username);
+		SessionKeyResponse CreateSessionKeyChallenge();
 		/// <summary>
 		/// Get's the sessionKey string to sign
 		/// 
@@ -80,11 +74,9 @@ namespace safewalk
 		/// If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
 		/// If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
 		/// </summary>
-		/// <param name="accessToken"></param>
-		/// <param name="username"></param> 
 		/// <param name="transactionId"></param>
 		/// <returns></returns>
-		SessionKeyResponse CreateSessionKeyChallenge(String accessToken, String username, String transactionId);
+		SessionKeyResponse CreateSessionKeyChallenge( String transactionId);
 
 		/* step 2 */
 		/// <summary>
@@ -94,11 +86,9 @@ namespace safewalk
 		/// If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
 		/// If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
 		/// </summary>
-		/// <param name="accessToken"></param>
-		/// <param name="username"></param>
 		/// <param name="sessionKey"></param>
 		/// <returns></returns>
-		SessionKeyVerificationResponse VerifySessionKeyStatus(String accessToken, String username, String sessionKey);
+		SessionKeyVerificationResponse VerifySessionKeyStatus(String sessionKey);
 		/// <summary>
 		/// Sends a Push signature to the mobile device.
 		/// 
@@ -106,12 +96,10 @@ namespace safewalk
 		/// If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
 		/// If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
 		/// </summary>
-		/// <param name="accessToken"></param>
-		/// <param name="username"></param>
 		/// <param name="sessionKey"></param>
 		/// <param name="transactionId"></param>
 		/// <returns></returns>
-		SessionKeyVerificationResponse VerifySessionKeyStatus(String accessToken, String username, String sessionKey, String transactionId);
+		SessionKeyVerificationResponse VerifySessionKeyStatus(String sessionKey, String transactionId);
 
 		/* signature API */
 		/// <summary>
@@ -121,7 +109,6 @@ namespace safewalk
 		/// If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
 		/// If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
 		/// </summary>
-		/// <param name="accessToken"></param>
 		/// <param name="username"></param>
 		/// <param name="password"></param>
 		/// <param name="_hash"></param>
@@ -129,7 +116,7 @@ namespace safewalk
 		/// <param name="title"></param>
 		/// <param name="body"></param>
 		/// <returns></returns>
-		SignatureResponse SendPushSignature(String accessToken, String username, String password, String _hash, String _data, String title, String body);
+		SignatureResponse SendPushSignature(String username, String password, String _hash, String _data, String title, String body);
 
 	}
 }
