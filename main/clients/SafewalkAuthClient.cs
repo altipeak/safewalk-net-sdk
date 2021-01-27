@@ -85,17 +85,15 @@ namespace safewalk
 
 		public ExternalAuthenticationResponse ExternalAuthenticate(String accessToken, String username)
         {
-			return this.ExternalAuthenticate(accessToken, username, null, null);
+			return this.ExternalAuthenticate(accessToken, username, null);
         }
 		public ExternalAuthenticationResponse ExternalAuthenticate(
 			  String accessToken
 			, String username 
-			, String excludeHybrid
 			, String transactionId)
 		{
 			var parameters = new Dictionary<String, String>() {
 				{ "username", username }, 
-				{ "exclude_hybrid", excludeHybrid },
 				{ "transaction_id", transactionId }
 			};
 
@@ -133,13 +131,12 @@ namespace safewalk
 
 		public SessionKeyResponse CreateSessionKeyChallenge(String accessToken, String username) 
 		{
-			return this.CreateSessionKeyChallenge(accessToken, username, null, null);
+			return this.CreateSessionKeyChallenge(accessToken, username, null);
 		}
-		public SessionKeyResponse CreateSessionKeyChallenge(String accessToken, String username, String excludeHybrid, String transactionId)
+		public SessionKeyResponse CreateSessionKeyChallenge(String accessToken, String username,  String transactionId)
         {
 			var parameters = new Dictionary<String, String>() {
-				{ "username", username },
-				{ "exclude_hybrid", excludeHybrid },
+				{ "username", username }, 
 				{ "transaction_id", transactionId }
 			};
 
@@ -172,18 +169,16 @@ namespace safewalk
 
 		public SessionKeyVerificationResponse VerifySessionKeyStatus(String accessToken, String username, String sessionKey)
         {
-			return this.VerifySessionKeyStatus(accessToken, username, sessionKey, null, null);
+			return this.VerifySessionKeyStatus(accessToken, username, sessionKey, null);
 		}
 		public SessionKeyVerificationResponse VerifySessionKeyStatus(
 			String accessToken
 			, String username
 			, String sessionKey
-			, String excludeHybrid
 			, String transactionId)
 		{
 			var parameters = new Dictionary<String, String>() {
 				{ "username", username },
-				{ "exclude_hybrid", excludeHybrid },
 				{ "transaction_id", transactionId },
 			};
 

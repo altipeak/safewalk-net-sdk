@@ -55,11 +55,10 @@ namespace safewalk
 		/// If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
 		/// </summary>
 		/// <param name="accessToken"></param>
-		/// <param name="username"></param>
-		/// <param name="excludeHybrid"></param>
+		/// <param name="username"></param> 
 		/// <param name="transactionId"></param>
 		/// <returns></returns>
-		ExternalAuthenticationResponse ExternalAuthenticate(String accessToken, String username,  String excludeHybrid, String transactionId);
+		ExternalAuthenticationResponse ExternalAuthenticate(String accessToken, String username, String transactionId);
 
 		/* QR Authentication */
 		/* step 1 */
@@ -82,11 +81,10 @@ namespace safewalk
 		/// If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
 		/// </summary>
 		/// <param name="accessToken"></param>
-		/// <param name="username"></param>
-		/// <param name="excludeHybrid"></param>
+		/// <param name="username"></param> 
 		/// <param name="transactionId"></param>
 		/// <returns></returns>
-		SessionKeyResponse CreateSessionKeyChallenge(String accessToken, String username, String excludeHybrid, String transactionId);
+		SessionKeyResponse CreateSessionKeyChallenge(String accessToken, String username, String transactionId);
 
 		/* step 2 */
 		/// <summary>
@@ -111,10 +109,9 @@ namespace safewalk
 		/// <param name="accessToken"></param>
 		/// <param name="username"></param>
 		/// <param name="sessionKey"></param>
-		/// <param name="excludeHybrid"></param>
 		/// <param name="transactionId"></param>
 		/// <returns></returns>
-		SessionKeyVerificationResponse VerifySessionKeyStatus(String accessToken, String username, String sessionKey, String excludeHybrid, String transactionId);
+		SessionKeyVerificationResponse VerifySessionKeyStatus(String accessToken, String username, String sessionKey, String transactionId);
 
 		/* signature API */
 		/// <summary>

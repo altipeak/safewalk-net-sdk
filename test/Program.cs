@@ -50,14 +50,15 @@ namespace test
         static void Main(string[] args)
         {
             /*auth client */
-            testSafewalkClientStandardAuthentication(INTERNAL_USERNAME, INTERNAL_PASSWORD);
-            testSafewalkClientExternalAuthentication(INTERNAL_USERNAME);
-            testSafewalkClientGenerateChallenge(INTERNAL_USERNAME);
-            testSafewalkClientsignature(INTERNAL_USERNAME, PASSWORD, HASH, DATA, TITLE, BODY);
-            
+            TestSafewalkClientStandardAuthentication(INTERNAL_USERNAME, INTERNAL_PASSWORD);
+            TestSafewalkClientExternalAuthentication(INTERNAL_USERNAME);
+            TestSafewalkClientGenerateChallenge(INTERNAL_USERNAME);
+            TestSafewalkClientsignature(INTERNAL_USERNAME, PASSWORD, HASH, DATA, TITLE, BODY);
+
+            Console.Read();
         }
         
-        private static void testSafewalkClientStandardAuthentication(String username, String password) {
+        private static void TestSafewalkClientStandardAuthentication(String username, String password) {
 
             Console.WriteLine("Standard Authentication PROCESS : start");
 
@@ -68,7 +69,7 @@ namespace test
             Console.WriteLine("Standard Authentication PROCESS : end");
         }
 
-        private static void testSafewalkClientExternalAuthentication(String username)
+        private static void TestSafewalkClientExternalAuthentication(String username)
         {
 
             Console.WriteLine("External Authentication PROCESS : start");
@@ -80,7 +81,7 @@ namespace test
             Console.WriteLine("External Authentication PROCESS : end");
         }
 
-        private static void testSafewalkClientGenerateChallenge(String username)
+        private static void TestSafewalkClientGenerateChallenge(String username)
         {
 
             Console.WriteLine("Generate Challenge - 1) Session Key PROCESS : start");
@@ -96,7 +97,7 @@ namespace test
             Console.WriteLine("Generate Challenge PROCESS : end");
         }
 
-        private static void testSafewalkClientsignature(String username, String password, String _hash, String _data, String title, String body)
+        private static void TestSafewalkClientsignature(String username, String password, String _hash, String _data, String title, String body)
         {
 
             Console.WriteLine("Push signature PROCESS : start");
