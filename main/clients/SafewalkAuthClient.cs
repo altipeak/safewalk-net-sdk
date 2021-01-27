@@ -183,7 +183,8 @@ namespace safewalk
 		{
 			var parameters = new Dictionary<String, String>() {
 				{ "username", username },
-				 
+				{ "exclude_hybrid", excludeHybrid },
+				{ "transaction_id", transactionId },
 			};
 
 
