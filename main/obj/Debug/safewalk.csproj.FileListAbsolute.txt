@@ -26,4 +26,4 @@ C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\bin\Debug\System.Js
 C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\bin\Debug\System.Json.xml
 C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\obj\Debug\safewalk.csproj.CopyComplete
-C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\obj\Debug\safewalk.csprojAssemblyReference.cache
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\bin\Debug\SafewalkClient.xml

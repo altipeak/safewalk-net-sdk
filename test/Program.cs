@@ -54,14 +54,7 @@ namespace test
             testSafewalkClientExternalAuthentication(INTERNAL_USERNAME);
             testSafewalkClientGenerateChallenge(INTERNAL_USERNAME);
             testSafewalkClientsignature(INTERNAL_USERNAME, PASSWORD, HASH, DATA, TITLE, BODY);
-            /*admin client*/
-            /*
-            testSafewalkClient_USER_CREATE(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, MOBILEPHONE, EMAIL, PARENT);
-            testSafewalkClient_USER_UPDATE(USERNAME, MOBILEPHONE_NEW, EMAIL_NEW);
-            testSafewalkClient_USER_GET(USERNAME);
-            testSafewalkClient_USER_DELETE(USERNAME);
-            testSafewalkClient_SET_STATIC_PASSWORD(USERNAME, PASSWORD_NEW);
-            */
+            
         }
         
         private static void testSafewalkClientStandardAuthentication(String username, String password) {
@@ -114,55 +107,7 @@ namespace test
             Console.WriteLine("Push signature RESPONSE : " + response1);
             Console.WriteLine("Push signature PROCESS : end");
         }
-        private static void testSafewalkClient_USER_CREATE(String username, String password, string firstname, string lastname, string phone, string email, string parent)
-        {
-            Console.WriteLine("USER_CREATE PROCESS : start"); 
-            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            ISafewalkAdminClient client = new SafewalkAdminClient(serverConnectivityHelper);
-            CreateUserResponse response1 = client.CreateUser(ADMIN_API_ACCESS_TOKEN, username, password, firstname, lastname, phone, email, parent);
-            Console.WriteLine("USER_CREATE RESPONSE : " + response1);
-            Console.WriteLine("USER_CREATE PROCESS : end");
-        }
-
-        private static void testSafewalkClient_USER_UPDATE(String username, string phone, string email)
-        {
-            Console.WriteLine("USER_UPDATE PROCESS : start");
-            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            ISafewalkAdminClient client = new SafewalkAdminClient(serverConnectivityHelper);
-            UpdateUserResponse response1 = client.UpdateUser(ADMIN_API_ACCESS_TOKEN, username, phone, email);
-            Console.WriteLine("USER_UPDATE RESPONSE : " + response1);
-            Console.WriteLine("USER_UPDATE PROCESS : end");
-        }
-
-        private static void testSafewalkClient_USER_GET(String username)
-        {
-            Console.WriteLine("USER_GET PROCESS : start");
-            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            ISafewalkAdminClient client = new SafewalkAdminClient(serverConnectivityHelper);
-            GetUserResponse response1 = client.GetUser(ADMIN_API_ACCESS_TOKEN, username);
-            Console.WriteLine("USER_GET RESPONSE : " + response1);
-            Console.WriteLine("USER_GET PROCESS : end");
-        }
-
-        private static void testSafewalkClient_USER_DELETE(String username)
-        {
-            Console.WriteLine("USER_DELETE PROCESS : start");
-            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            ISafewalkAdminClient client = new SafewalkAdminClient(serverConnectivityHelper);
-            DeleteUserResponse response1 = client.DeleteUser(ADMIN_API_ACCESS_TOKEN, username);
-            Console.WriteLine("USER_DELETE RESPONSE : " + response1);
-            Console.WriteLine("USER_DELETE PROCESS : end");
-        }
-
-        private static void testSafewalkClient_SET_STATIC_PASSWORD(String username, String password)
-        {
-            Console.WriteLine("SET_STATIC_PASSWORD PROCESS : start");
-            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            ISafewalkAdminClient client = new SafewalkAdminClient(serverConnectivityHelper);
-            SetStaticPasswordResponse response1 = client.SetStaticPassword(ADMIN_API_ACCESS_TOKEN, username, password);
-            Console.WriteLine("SET_STATIC_PASSWORD RESPONSE : " + response1);
-            Console.WriteLine("SET_STATIC_PASSWORD PROCESS : end");
-        }
+       
     }
     
 }
