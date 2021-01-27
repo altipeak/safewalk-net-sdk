@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clients\ISafewalkAuthClient.cs" />
+    <Compile Include="clients\SafewalkAuthClient.cs" />
     <Compile Include="responses\AssociateTokenResponse.cs" />
     <Compile Include="responses\BaseResponse.cs" />
     <Compile Include="responses\CreateRegistrationCode.cs" />
@@ -57,14 +59,18 @@
     <Compile Include="helper\ServerConnectivityHelperImpl.cs" />
     <Compile Include="responses\DeleteTokenAssociation.cs" />
     <Compile Include="responses\DeleteUserResponse.cs" />
+    <Compile Include="responses\ExternalAuthenticationResponse.cs" />
     <Compile Include="responses\GetTokenAssociationsResponse.cs" />
     <Compile Include="responses\GetUserResponse.cs" />
+    <Compile Include="responses\SessionKeyResponse.cs" />
+    <Compile Include="responses\SessionKeyVerificationResponse.cs" />
     <Compile Include="responses\SetStaticPasswordResponse.cs" />
+    <Compile Include="responses\SignatureResponse.cs" />
     <Compile Include="responses\UpdateUserResponse.cs" />
-    <Compile Include="SafewalkClient.cs" />
+    <Compile Include="clients\ISafewalkAdminClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="responses\AuthenticationResponse.cs" />
-    <Compile Include="SafewalkClientImpl.cs" />
+    <Compile Include="clients\SafewalkAdminClient.cs" />
     <Compile Include="utils\DeviceType.cs" />
     <Compile Include="utils\TokenAssociation.cs" />
     <Compile Include="web\MyWebClient.cs">

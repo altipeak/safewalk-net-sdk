@@ -38,35 +38,87 @@ namespace test
 
         /*set static pass*/
         private static readonly string PASSWORD_NEW = settings["USER_password_new"];
-        
+
+        /*push signature */
+        private static readonly string HASH = settings["hash"];
+        private static readonly string DATA = settings["data"];
+        private static readonly string TITLE = settings["title"];
+        private static readonly string BODY = settings["body"];
+
 
         static private ServerConnectivityHelper serverConnectivityHelper ;    
         static void Main(string[] args)
         {
-        	testSafewalkClient(INTERNAL_USERNAME, INTERNAL_PASSWORD);
+            /*auth client */
+            testSafewalkClientStandardAuthentication(INTERNAL_USERNAME, INTERNAL_PASSWORD);
+            testSafewalkClientExternalAuthentication(INTERNAL_USERNAME);
+            testSafewalkClientGenerateChallenge(INTERNAL_USERNAME);
+            testSafewalkClientsignature(INTERNAL_USERNAME, PASSWORD, HASH, DATA, TITLE, BODY);
+            /*admin client*/
+            /*
             testSafewalkClient_USER_CREATE(USERNAME, PASSWORD, FIRSTNAME, LASTNAME, MOBILEPHONE, EMAIL, PARENT);
             testSafewalkClient_USER_UPDATE(USERNAME, MOBILEPHONE_NEW, EMAIL_NEW);
             testSafewalkClient_USER_GET(USERNAME);
             testSafewalkClient_USER_DELETE(USERNAME);
             testSafewalkClient_SET_STATIC_PASSWORD(USERNAME, PASSWORD_NEW);
+            */
         }
         
-        private static void testSafewalkClient(String username, String password) {
+        private static void testSafewalkClientStandardAuthentication(String username, String password) {
 
-            Console.WriteLine("AUTHENTICATION PROCESS : start" );
+            Console.WriteLine("Standard Authentication PROCESS : start");
 
             serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            SafewalkClient client = new SafewalkClientImpl(serverConnectivityHelper);
+            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper);
             AuthenticationResponse response1 = client.Authenticate(AUTHENTICATION_API_ACCESS_TOKEN, username, password);
-            Console.WriteLine("AUTHENTICATION RESPONSE : " + response1);
-            Console.WriteLine("AUTHENTICATION PROCESS : end");
+            Console.WriteLine("Standard Authentication RESPONSE : " + response1);
+            Console.WriteLine("Standard Authentication PROCESS : end");
         }
 
+        private static void testSafewalkClientExternalAuthentication(String username)
+        {
+
+            Console.WriteLine("External Authentication PROCESS : start");
+
+            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
+            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper);
+            AuthenticationResponse response1 = client.ExternalAuthenticate(AUTHENTICATION_API_ACCESS_TOKEN, username);
+            Console.WriteLine("External Authentication RESPONSE : " + response1);
+            Console.WriteLine("External Authentication PROCESS : end");
+        }
+
+        private static void testSafewalkClientGenerateChallenge(String username)
+        {
+
+            Console.WriteLine("Generate Challenge - 1) Session Key PROCESS : start");
+
+            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
+            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper);
+            SessionKeyResponse response1 = client.CreateSessionKeyChallenge(AUTHENTICATION_API_ACCESS_TOKEN, username);
+            Console.WriteLine("Generate Challenge - Session Key RESPONSE : " + response1);
+
+            Console.WriteLine("\nGenerate Challenge - 2) Verify Session Key: start");
+            SessionKeyVerificationResponse response2 = client.VerifySessionKeyStatus(AUTHENTICATION_API_ACCESS_TOKEN, username, response1.GetChallenge());
+            Console.WriteLine("Generate Challenge - Session Key RESPONSE : " + response2);
+            Console.WriteLine("Generate Challenge PROCESS : end");
+        }
+
+        private static void testSafewalkClientsignature(String username, String password, String _hash, String _data, String title, String body)
+        {
+
+            Console.WriteLine("Push signature PROCESS : start");
+
+            serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
+            SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper);
+            SignatureResponse response1 = client.SendPushSignature(AUTHENTICATION_API_ACCESS_TOKEN, username, password, _hash, _data, title, body);
+            Console.WriteLine("Push signature RESPONSE : " + response1);
+            Console.WriteLine("Push signature PROCESS : end");
+        }
         private static void testSafewalkClient_USER_CREATE(String username, String password, string firstname, string lastname, string phone, string email, string parent)
         {
             Console.WriteLine("USER_CREATE PROCESS : start"); 
             serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            SafewalkClient client = new SafewalkClientImpl(serverConnectivityHelper);
+            ISafewalkAdminClient client = new SafewalkAdminClient(serverConnectivityHelper);
             CreateUserResponse response1 = client.CreateUser(ADMIN_API_ACCESS_TOKEN, username, password, firstname, lastname, phone, email, parent);
             Console.WriteLine("USER_CREATE RESPONSE : " + response1);
             Console.WriteLine("USER_CREATE PROCESS : end");
@@ -76,7 +128,7 @@ namespace test
         {
             Console.WriteLine("USER_UPDATE PROCESS : start");
             serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            SafewalkClient client = new SafewalkClientImpl(serverConnectivityHelper);
+            ISafewalkAdminClient client = new SafewalkAdminClient(serverConnectivityHelper);
             UpdateUserResponse response1 = client.UpdateUser(ADMIN_API_ACCESS_TOKEN, username, phone, email);
             Console.WriteLine("USER_UPDATE RESPONSE : " + response1);
             Console.WriteLine("USER_UPDATE PROCESS : end");
@@ -86,7 +138,7 @@ namespace test
         {
             Console.WriteLine("USER_GET PROCESS : start");
             serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            SafewalkClient client = new SafewalkClientImpl(serverConnectivityHelper);
+            ISafewalkAdminClient client = new SafewalkAdminClient(serverConnectivityHelper);
             GetUserResponse response1 = client.GetUser(ADMIN_API_ACCESS_TOKEN, username);
             Console.WriteLine("USER_GET RESPONSE : " + response1);
             Console.WriteLine("USER_GET PROCESS : end");
@@ -96,7 +148,7 @@ namespace test
         {
             Console.WriteLine("USER_DELETE PROCESS : start");
             serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            SafewalkClient client = new SafewalkClientImpl(serverConnectivityHelper);
+            ISafewalkAdminClient client = new SafewalkAdminClient(serverConnectivityHelper);
             DeleteUserResponse response1 = client.DeleteUser(ADMIN_API_ACCESS_TOKEN, username);
             Console.WriteLine("USER_DELETE RESPONSE : " + response1);
             Console.WriteLine("USER_DELETE PROCESS : end");
@@ -106,7 +158,7 @@ namespace test
         {
             Console.WriteLine("SET_STATIC_PASSWORD PROCESS : start");
             serverConnectivityHelper = new ServerConnectivityHelperImpl(HOST, PORT);
-            SafewalkClient client = new SafewalkClientImpl(serverConnectivityHelper);
+            ISafewalkAdminClient client = new SafewalkAdminClient(serverConnectivityHelper);
             SetStaticPasswordResponse response1 = client.SetStaticPassword(ADMIN_API_ACCESS_TOKEN, username, password);
             Console.WriteLine("SET_STATIC_PASSWORD RESPONSE : " + response1);
             Console.WriteLine("SET_STATIC_PASSWORD PROCESS : end");

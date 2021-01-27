@@ -30,6 +30,7 @@ namespace safewalk
             this.errors = errors;
         }
         #endregion
+ 
         #region "Publics"
         public Dictionary<String, List<String>> getErrors()
         {

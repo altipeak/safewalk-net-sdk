@@ -66,7 +66,6 @@ namespace safewalk
 			this.replyMessage = replyMessage; 
 			this.detail = detail;
 			this.replyCode = replyCode;
-			this.errors = new Dictionary<string, List<string>>();
 		}
     
 		public AuthenticationResponse(int httpCode
