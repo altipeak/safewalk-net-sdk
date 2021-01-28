@@ -13,6 +13,8 @@ namespace dllUsageExample
     /// <summary>
     /// USAGE:
     /// include safewalk-sdk-net.dll into dependencies
+    /// goto project > Dependencies > (right button) Add com references 
+    /// browse in the local project and add safewalk-sdk-net.dll
     /// </summary>
     class Program
     {
