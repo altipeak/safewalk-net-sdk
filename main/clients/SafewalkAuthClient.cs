@@ -85,7 +85,7 @@ namespace safewalk
 
 		}
 
-		public ExternalAuthenticationResponse ExternalAuthenticate(String username)
+		public ExternalAuthenticationResponse AuthenticateExternal(String username)
         {
 			return this.ExternalAuthenticate(username, null);
         }

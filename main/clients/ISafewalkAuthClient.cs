@@ -16,7 +16,7 @@ namespace safewalk
 		/// If the given username has the format of "username@domain"; the user will be created in the LDAP with the given domain.
 		/// </summary>
 		/// <param name="username"></param>
-		/// <param name="password"></param>
+		/// <param name="password">Static password or OTP</param>
 		/// <returns></returns>
 		AuthenticationResponse Authenticate(String username, String password);
 
@@ -28,7 +28,7 @@ namespace safewalk
 		/// If the given username has the format of "username@domain"; the user will be created in the LDAP with the given domain.
 		/// </summary>
 		/// <param name="username"></param>
-		/// <param name="password"></param>
+		/// <param name="password">Static password or OTP</param>
 		/// <param name="transactionId"></param>
 		/// <returns></returns>
 		AuthenticationResponse Authenticate(String username, String password, String transactionId);
@@ -42,7 +42,7 @@ namespace safewalk
 		/// </summary>
 		/// <param name="username"></param>
 		/// <returns></returns>
-		ExternalAuthenticationResponse ExternalAuthenticate( String username);
+		ExternalAuthenticationResponse AuthenticateExternal( String username);
 
 		/// <summary>
 		/// Standard authentication for external users.
@@ -86,7 +86,7 @@ namespace safewalk
 		/// If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
 		/// If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
 		/// </summary>
-		/// <param name="sessionKey"></param>
+		/// <param name="sessionKey">The challenge obtained with createSessionKeyChallenge()</param>
 		/// <returns></returns>
 		SessionKeyVerificationResponse VerifySessionKeyStatus(String sessionKey);
 		/// <summary>
@@ -96,7 +96,7 @@ namespace safewalk
 		/// If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
 		/// If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
 		/// </summary>
-		/// <param name="sessionKey"></param>
+		/// <param name="sessionKey">The challenge obtained with createSessionKeyChallenge()</param>
 		/// <param name="transactionId"></param>
 		/// <returns></returns>
 		SessionKeyVerificationResponse VerifySessionKeyStatus(String sessionKey, String transactionId);
@@ -112,9 +112,9 @@ namespace safewalk
 		/// <param name="username"></param>
 		/// <param name="password"></param>
 		/// <param name="_hash"></param>
-		/// <param name="_data"></param>
-		/// <param name="title"></param>
-		/// <param name="body"></param>
+		/// <param name="_data"> The data to sign. Data or body are required</param>
+		/// <param name="title">The title displayed in the mobile device. Optional</param>
+		/// <param name="body">The body of the push. Data or body are required</param>
 		/// <returns></returns>
 		SignatureResponse SendPushSignature(String username, String password, String _hash, String _data, String title, String body);
 

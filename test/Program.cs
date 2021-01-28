@@ -55,7 +55,7 @@ namespace test
             TestSafewalkClientStandardAuthentication(INTERNAL_USERNAME, INTERNAL_PASSWORD);
             TestSafewalkClientExternalAuthentication(INTERNAL_USERNAME);
             TestSafewalkClientGenerateChallenge(INTERNAL_USERNAME);
-            TestSafewalkClientsignature(INTERNAL_USERNAME, PASSWORD, HASH, DATA, TITLE, BODY);
+            TestSafewalkClientsignature(INTERNAL_USERNAME, INTERNAL_PASSWORD, HASH, DATA, TITLE, BODY);
 
             Console.Read();
         }
@@ -78,7 +78,7 @@ namespace test
 
             serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT, SET_BYPASS_SSL_CERTIFICATE);
             SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
-            AuthenticationResponse response1 = client.ExternalAuthenticate(username);
+            AuthenticationResponse response1 = client.AuthenticateExternal(username);
             Console.WriteLine("External Authentication RESPONSE : " + response1);
             Console.WriteLine("External Authentication PROCESS : end");
         }
