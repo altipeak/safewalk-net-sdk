@@ -16,3 +16,15 @@ D:\git\net\safewalk-net-sdk\main\bin\Debug\System.Json.xml
 D:\git\net\safewalk-net-sdk\main\obj\Debug\safewalk.csprojResolveAssemblyReference.cache
 D:\git\net\safewalk-net-sdk\main\obj\Debug\main.dll
 D:\git\net\safewalk-net-sdk\main\obj\Debug\main.pdb
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\obj\Debug\safewalk.csproj.CoreCompileInputs.cache
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\obj\Debug\main.dll
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\obj\Debug\main.pdb
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\bin\Debug\main.dll
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\bin\Debug\main.pdb
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\bin\Debug\System.Json.dll
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\bin\Debug\System.Json.xml
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\obj\Debug\safewalk.csproj.CopyComplete
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\bin\Debug\SafewalkClient.xml
+C:\Users\Alfonso\Source\repos\altipeak\safewalk-net-sdk\main\obj\Debug\safewalk.csprojAssemblyReference.cache

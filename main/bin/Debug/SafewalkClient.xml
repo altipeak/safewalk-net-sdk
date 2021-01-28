@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>main</name>
+    </assembly>
+    <members>
+        <member name="T:safewalk.ISafewalkAuthClient">
+            <summary>
+            Safewalk integration Client
+            </summary>
+        </member>
+        <member name="M:safewalk.ISafewalkAuthClient.Authenticate(System.String,System.String)">
+            <summary>
+            Authenticates the user with the given credentials.
+            
+            The username will determine if the user is an internal user or an LDAP user.
+            If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order
+            If the given username has the format of "username@domain"; the user will be created in the LDAP with the given domain.
+            </summary>
+            <param name="username"></param>
+            <param name="password">Static password or OTP</param>
+            <returns></returns>
+        </member>
+        <member name="M:safewalk.ISafewalkAuthClient.Authenticate(System.String,System.String,System.String)">
+            <summary>
+            Authenticates the user with the given credentials.
+            
+            The username will determine if the user is an internal user or an LDAP user.
+            If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order
+            If the given username has the format of "username@domain"; the user will be created in the LDAP with the given domain.
+            </summary>
+            <param name="username"></param>
+            <param name="password">Static password or OTP</param>
+            <param name="transactionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:safewalk.ISafewalkAuthClient.AuthenticateExternal(System.String)">
+            <summary>
+            Standard authentication for external users.
+            
+            The username will determine if the user is an internal user or an LDAP user.
+            If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order
+            If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
+            </summary>
+            <param name="username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:safewalk.ISafewalkAuthClient.ExternalAuthenticate(System.String,System.String)">
+            <summary>
+            Standard authentication for external users.
+            
+            The username will determine if the user is an internal user or an LDAP user.
+            If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order
+            If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
+            </summary>
+            <param name="username"></param> 
+            <param name="transactionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:safewalk.ISafewalkAuthClient.CreateSessionKeyChallenge">
+            <summary>
+            Get's the sessionKey string to sign
+            
+            The username will determine if the user is an internal user or an LDAP user.
+            If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
+            If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:safewalk.ISafewalkAuthClient.CreateSessionKeyChallenge(System.String)">
+            <summary>
+            Get's the sessionKey string to sign
+            
+            The username will determine if the user is an internal user or an LDAP user.
+            If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
+            If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
+            </summary>
+            <param name="transactionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:safewalk.ISafewalkAuthClient.VerifySessionKeyStatus(System.String)">
+            <summary>
+            Sends a Push signature to the mobile device.
+            
+            The username will determine if the user is an internal user or an LDAP user.
+            If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
+            If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
+            </summary>
+            <param name="sessionKey">The challenge obtained with createSessionKeyChallenge()</param>
+            <returns></returns>
+        </member>
+        <member name="M:safewalk.ISafewalkAuthClient.VerifySessionKeyStatus(System.String,System.String)">
+            <summary>
+            Sends a Push signature to the mobile device.
+            
+            The username will determine if the user is an internal user or an LDAP user.
+            If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
+            If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
+            </summary>
+            <param name="sessionKey">The challenge obtained with createSessionKeyChallenge()</param>
+            <param name="transactionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:safewalk.ISafewalkAuthClient.SendPushSignature(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Standard authentication for external users.
+            
+            The username will determine if the user is an internal user or an LDAP user.
+            If the given username has the format of "username" the user will be created as an internal user(In the database). If it doesn't exist, it will look in the LDAP following the priority order.
+            If the given username has the format of "username@domain" the user will be created in the LDAP with the given domain.
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+            <param name="_hash"></param>
+            <param name="_data"> The data to sign. Data or body are required</param>
+            <param name="title">The title displayed in the mobile device. Optional</param>
+            <param name="body">The body of the push. Data or body are required</param>
+            <returns></returns>
+        </member>
+        <member name="M:safewalk.CreateUserResponse.getDbMobilePhone">
+            @return the dbMobilePhone
+        </member>
+        <member name="M:safewalk.CreateUserResponse.getDbEmail">
+            @return the dbEmail
+        </member>
+        <member name="M:safewalk.CreateUserResponse.getLdapMobilePhone">
+            @return the ldapMobilePhone
+        </member>
+        <member name="M:safewalk.CreateUserResponse.getLdapEmail">
+            @return the ldapEmail
+        </member>
+        <member name="M:safewalk.CreateUserResponse.getUserStorage">
+            @return the userStorage
+        </member>
+        <member name="M:safewalk.CreateUserResponse.getFirstName">
+            @return the firstName
+        </member>
+        <member name="M:safewalk.CreateUserResponse.getLastName">
+            @return the lastName
+        </member>
+        <member name="M:safewalk.CreateUserResponse.getDn">
+            @return the dn
+        </member>
+        <member name="M:safewalk.CreateUserResponse.getUsername">
+            @return the username
+        </member>
+        <member name="F:safewalk.ReplyCode.USR_LOCKED">
+            <sumary>
+             The user is locked. 
+            </sumary>
+        </member>
+        <member name="F:safewalk.ReplyCode.INTERNAL_SYSTEM_ERROR">
+            <sumary>
+             An internal error occured. 
+            </sumary>
+        </member>
+        <member name="F:safewalk.ReplyCode.INVALID_CREDENTIALS">
+            <sumary>
+             Invalid credentials. 
+            </sumary>
+        </member>
+        <member name="F:safewalk.ReplyCode.OTP_REQUIRED">
+            <sumary>
+             OTP required. This is the case where the user has a token with password required enabled (2 Step authentication).
+            </sumary>
+        </member>
+        <member name="F:safewalk.ReplyCode.DEVICE_OUT_OF_SYNC">
+            <sumary>
+             The device (token) is out of sync
+            </sumary>
+        </member>
+    </members>
+</doc>

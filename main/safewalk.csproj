@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\SafewalkClient.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,14 +48,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clients\ISafewalkAuthClient.cs" />
+    <Compile Include="clients\SafewalkAuthClient.cs" />
+    <Compile Include="responses\AssociateTokenResponse.cs" />
+    <Compile Include="responses\BaseResponse.cs" />
+    <Compile Include="responses\CreateRegistrationCode.cs" />
+    <Compile Include="responses\CreateUserResponse.cs" />
     <Compile Include="helper\ConnectivityException.cs" />
     <Compile Include="helper\Response.cs" />
+    <Compile Include="helper\IServerConnectivityHelper.cs" />
     <Compile Include="helper\ServerConnectivityHelper.cs" />
-    <Compile Include="helper\ServerConnectivityHelperImpl.cs" />
-    <Compile Include="SafewalkClient.cs" />
+    <Compile Include="responses\DeleteTokenAssociation.cs" />
+    <Compile Include="responses\DeleteUserResponse.cs" />
+    <Compile Include="responses\ExternalAuthenticationResponse.cs" />
+    <Compile Include="responses\GetTokenAssociationsResponse.cs" />
+    <Compile Include="responses\GetUserResponse.cs" />
+    <Compile Include="responses\SessionKeyResponse.cs" />
+    <Compile Include="responses\SessionKeyVerificationResponse.cs" />
+    <Compile Include="responses\SetStaticPasswordResponse.cs" />
+    <Compile Include="responses\SignatureResponse.cs" />
+    <Compile Include="responses\UpdateUserResponse.cs" />
+    <Compile Include="clients\ISafewalkAdminClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AuthenticationResponse.cs" />
-    <Compile Include="SafewalkClientImpl.cs" />
+    <Compile Include="responses\AuthenticationResponse.cs" />
+    <Compile Include="clients\SafewalkAdminClient.cs" />
+    <Compile Include="utils\DeviceType.cs" />
+    <Compile Include="utils\TokenAssociation.cs" />
     <Compile Include="web\MyWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
