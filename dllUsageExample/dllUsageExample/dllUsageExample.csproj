@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <Reference Include="safewalk-sdk-net">
-      <HintPath>..\..\main\bin\Debug\safewalk-sdk-net.dll</HintPath>
+      <HintPath>safewalk-sdk-net.dll</HintPath>
     </Reference>
   </ItemGroup>
 
