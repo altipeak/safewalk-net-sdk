@@ -10,6 +10,10 @@ using safewalk.helper;
 
 namespace dllUsageExample
 {
+    /// <summary>
+    /// USAGE:
+    /// include safewalk-sdk-net.dll into dependencies
+    /// </summary>
     class Program
     {
         #region "consts"
@@ -53,11 +57,6 @@ namespace dllUsageExample
 
         static private IServerConnectivityHelper serverConnectivityHelper;
 
-        /// <summary>
-        /// USAGE:
-        /// include safewalk-sdk-net.dll into dependencies
-        /// </summary>
-        /// <param name="args"></param>
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
