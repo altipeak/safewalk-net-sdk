@@ -11,7 +11,8 @@ namespace test
 {
     class Program
     {
-        private static System.Collections.Specialized.NameValueCollection settings = ConfigurationManager.AppSettings;                        
+        #region "consts"
+        private static readonly System.Collections.Specialized.NameValueCollection settings = ConfigurationManager.AppSettings;                        
 
         private static readonly String HOST = settings["HOST"];
         private static readonly long   PORT = long.Parse(settings["PORT"]);
@@ -47,6 +48,7 @@ namespace test
         private static readonly string TITLE = settings["title"];
         private static readonly string BODY = settings["body"];
 
+        #endregion
 
         static private IServerConnectivityHelper serverConnectivityHelper ;    
         static void Main(string[] args)
@@ -59,7 +61,8 @@ namespace test
 
             Console.Read();
         }
-        
+
+        #region "tests"
         private static void TestSafewalkClientStandardAuthentication(String username, String password) {
 
             Console.WriteLine("Standard Authentication PROCESS : start");
@@ -110,7 +113,8 @@ namespace test
             Console.WriteLine("Push signature RESPONSE : " + response1);
             Console.WriteLine("Push signature PROCESS : end");
         }
-       
+
+        #endregion
     }
-    
+
 }

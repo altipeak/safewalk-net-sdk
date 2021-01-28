@@ -70,7 +70,7 @@ namespace safewalk.helper
 
 				if (this.setBypassSSLCertificate)
                 {
-					var certificate = new X509Certificate();
+					var certificate = new X509Certificate2();
 					ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
 					ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
