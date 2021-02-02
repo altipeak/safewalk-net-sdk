@@ -7,7 +7,7 @@
 
 This project presents the Safewalk Authentication API usage. The available APIs are listed below: 
 
-* Static Password 
+* User credentials
 * QR Code 
 * Push Signature 
 * Push Authentication 
@@ -23,13 +23,14 @@ Note, Inside ISafewalkAuthClient interface there is the description of each meth
 String host = "https://192.168.1.160";
 long  port = 8443;
 private static string AUTHENTICATION_API_ACCESS_TOKEN = "c4608fc697e844829bb5a27cce13737250161bd0";
-private static string  FAST_AUTH_USERNAME = "fastauth";
+String staticPasswordUserName = "internal";
+String fastAuthUserName = "fastauth";
 
 serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
 SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
 
 /* Standard Authentication */
-AuthenticationResponse response1 = client.Authenticate(INTERNAL_USERNAME, STATIC_PASSWORD_USERNAME);
+AuthenticationResponse response1 = client.Authenticate(fastAuthUserName, staticPasswordUserName);
 
 ```
 * host : The server host.
