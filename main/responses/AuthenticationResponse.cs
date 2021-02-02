@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Json;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace safewalk
 {
@@ -54,7 +51,7 @@ namespace safewalk
 		#region "constr"
 		
 		public AuthenticationResponse(int httpCode
-									, JsonObject attributes
+									, Dictionary<String, String> attributes
 									, AuthenticationCode? code
                                     , String transactionId
                                     , String username

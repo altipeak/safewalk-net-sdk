@@ -16,12 +16,12 @@ namespace safewalk
 
         protected const String SEPARATOR = " | ";
 
-        protected JsonObject attributes;
+        protected Dictionary<String, String> attributes;
         #endregion
 
         #region "constr"
        
-        public BaseResponse(int httpCode, JsonObject attributes)
+        public BaseResponse(int httpCode, Dictionary<String, String> attributes)
         {
             this.httpCode = httpCode;
             this.errors = new Dictionary<string, List<string>>();
@@ -33,10 +33,10 @@ namespace safewalk
         {
             this.httpCode = httpCode;            
             this.errors = errors;
-            this.attributes = new JsonObject();
+            this.attributes = new Dictionary<String, String>();
         }
         public BaseResponse(int httpCode
-            , JsonObject attributes
+            , Dictionary<String, String> attributes
             , Dictionary<String, List<String>> errors)
         {
             this.httpCode = httpCode;
@@ -69,7 +69,7 @@ namespace safewalk
             return sb.ToString();
         }
         
-        public JsonObject getAttributes()
+        public Dictionary<String, String> getAttributes()
         {
             return this.attributes;
         }

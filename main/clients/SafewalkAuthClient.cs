@@ -70,7 +70,7 @@ namespace safewalk
 
 				return new AuthenticationResponse(
 					response.getResponseCode()
-				, jsonResponse
+				, this.getDict(jsonResponse)
 				, this.getAuthenticationCode(jsonResponse, JSON_AUTH_CODE_FIELD)
 				, this.getString(jsonResponse, JSON_AUTH_TRANSACTION_FIELD)
 				, this.getString(jsonResponse, JSON_AUTH_USERNAME_ID_FIELD)
@@ -114,7 +114,7 @@ namespace safewalk
 
 				return new ExternalAuthenticationResponse(
 					response.getResponseCode()
-					, jsonResponse
+					, this.getDict(jsonResponse)
 					, this.getAuthenticationCode(jsonResponse, JSON_AUTH_CODE_FIELD)
 					, this.getString(jsonResponse, JSON_AUTH_TRANSACTION_FIELD)
 					, this.getString(jsonResponse, JSON_AUTH_USERNAME_ID_FIELD)
@@ -157,7 +157,7 @@ namespace safewalk
 
 				return new SessionKeyResponse(
 					response.getResponseCode()
-					, jsonResponse
+					, this.getDict(jsonResponse)
 					, this.getStringWithoutQuotes(jsonResponse, JSON_AUTH_CHALLENGE)
 					, this.getString(jsonResponse, JSON_AUTH_PURPOSE) 
 					);
@@ -198,7 +198,7 @@ namespace safewalk
 
 				return new SessionKeyVerificationResponse(
 					response.getResponseCode()
-					, jsonResponse
+					, this.getDict(jsonResponse)
 					, this.getString(jsonResponse, JSON_AUTH_CODE) 
 					);
 			}
@@ -232,15 +232,11 @@ namespace safewalk
 
 			Response response = ServerConnetivityHelper.post("/api/v1/auth/push_signature/", parameters, headers);
 
-			// convert string to stream
-			byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
-			var stream = new MemoryStream(byteArray);
-
-			var jsonResponse = (JsonObject)JsonValue.Load(stream);
+			 
 
 			if (response.getResponseCode() == 200)
 			{
-				return new SignatureResponse(response.getResponseCode(), jsonResponse);
+				return new SignatureResponse(response.getResponseCode(), new Dictionary<string, string>());
 			}
 			else if (response.getResponseCode() == 400)
 			{
@@ -254,6 +250,19 @@ namespace safewalk
 		#endregion
 
 		#region "privates"
+
+		private Dictionary<String, String> getDict(IDictionary<string, JsonValue> json)
+        {
+			Dictionary<String, String> ret = new Dictionary<String, String>();
+
+			foreach(var key in json.Keys)
+            {
+				ret[key] = json[key].ToString();
+            }
+
+			return ret;
+
+		}
 		private String getString(IDictionary<string, JsonValue> json, String key)
 		{
 			if (json.ContainsKey(key))

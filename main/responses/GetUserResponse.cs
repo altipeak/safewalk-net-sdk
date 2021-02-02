@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Json;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace safewalk
 {
@@ -21,7 +17,7 @@ namespace safewalk
         private Boolean? locked;
 
         public GetUserResponse(int httpCode
-                            , JsonObject attributes
+                            , Dictionary<String, String> attributes
                             , String username
                             , String firstName
                             , String lastName
