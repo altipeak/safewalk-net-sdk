@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>safewalk</RootNamespace>
-    <AssemblyName>safewalk-sdk-net</AssemblyName>
+    <AssemblyName>altipeak-safewalk-auth</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="safewalk-sdk-net">
-      <HintPath>safewalk-sdk-net.dll</HintPath>
+    <Reference Include="altipeak-safewalk-auth">
+      <HintPath>altipeak-safewalk-auth.dll</HintPath>
     </Reference>
   </ItemGroup>
 
