@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +16,9 @@ namespace safewalk
 
         #region "constr"
         public AssociateTokenResponse(int httpCode
+            , JsonObject attributes
             , Boolean failToSendRegistrationCode
-            , Boolean failToSendDownloadLinks) : base(httpCode)
+            , Boolean failToSendDownloadLinks) : base(httpCode, attributes)
         {
             this.failToSendDownloadLinks = failToSendDownloadLinks;
             this.failToSendRegistrationCode = failToSendRegistrationCode;

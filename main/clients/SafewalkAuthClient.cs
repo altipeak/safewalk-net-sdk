@@ -42,7 +42,7 @@ namespace safewalk
 		#region "publics"
 		public AuthenticationResponse Authenticate(String username, String password)
 		{
-			return this.Authenticate(username, password, null);
+			return this.Authenticate(username, password,  null);
 		}
 
 		public AuthenticationResponse Authenticate(String username, String password, String transactionId)
@@ -70,6 +70,7 @@ namespace safewalk
 
 				return new AuthenticationResponse(
 					response.getResponseCode()
+				, jsonResponse
 				, this.getAuthenticationCode(jsonResponse, JSON_AUTH_CODE_FIELD)
 				, this.getString(jsonResponse, JSON_AUTH_TRANSACTION_FIELD)
 				, this.getString(jsonResponse, JSON_AUTH_USERNAME_ID_FIELD)
@@ -113,13 +114,14 @@ namespace safewalk
 
 				return new ExternalAuthenticationResponse(
 					response.getResponseCode()
-				, this.getAuthenticationCode(jsonResponse, JSON_AUTH_CODE_FIELD)
-				, this.getString(jsonResponse, JSON_AUTH_TRANSACTION_FIELD)
-				, this.getString(jsonResponse, JSON_AUTH_USERNAME_ID_FIELD)
-				, this.getString(jsonResponse, JSON_AUTH_REPLY_MESSAGE_FIELD)
-				, this.getString(jsonResponse, JSON_AUTH_DETAIL_FIELD)
-				, this.getReplyCode(jsonResponse, JSON_AUTH_REPLY_CODE_FIELD)
-				);
+					, jsonResponse
+					, this.getAuthenticationCode(jsonResponse, JSON_AUTH_CODE_FIELD)
+					, this.getString(jsonResponse, JSON_AUTH_TRANSACTION_FIELD)
+					, this.getString(jsonResponse, JSON_AUTH_USERNAME_ID_FIELD)
+					, this.getString(jsonResponse, JSON_AUTH_REPLY_MESSAGE_FIELD)
+					, this.getString(jsonResponse, JSON_AUTH_DETAIL_FIELD)
+					, this.getReplyCode(jsonResponse, JSON_AUTH_REPLY_CODE_FIELD)
+					);
 			}
 			else
 			{
@@ -132,7 +134,7 @@ namespace safewalk
 		{
 			return this.CreateSessionKeyChallenge(null);
 		}
-		public SessionKeyResponse CreateSessionKeyChallenge(String transactionId)
+		public SessionKeyResponse CreateSessionKeyChallenge(String transactionId) 
         {
 			var parameters = new Dictionary<String, String>() {
 				{ "transaction_id", transactionId },
@@ -155,9 +157,10 @@ namespace safewalk
 
 				return new SessionKeyResponse(
 					response.getResponseCode()
-				, this.getStringWithoutQuotes(jsonResponse, JSON_AUTH_CHALLENGE)
-				, this.getString(jsonResponse, JSON_AUTH_PURPOSE) 
-				);
+					, jsonResponse
+					, this.getStringWithoutQuotes(jsonResponse, JSON_AUTH_CHALLENGE)
+					, this.getString(jsonResponse, JSON_AUTH_PURPOSE) 
+					);
 			}
 			else
 			{
@@ -195,8 +198,9 @@ namespace safewalk
 
 				return new SessionKeyVerificationResponse(
 					response.getResponseCode()
-				, this.getString(jsonResponse, JSON_AUTH_CODE) 
-				);
+					, jsonResponse
+					, this.getString(jsonResponse, JSON_AUTH_CODE) 
+					);
 			}
 			else
 			{
@@ -210,7 +214,8 @@ namespace safewalk
 			, String _hash
 			, String _data
 			, String title
-			, String body)
+			, String body
+			)
 		{
 			var parameters = new Dictionary<String, String>() {
 				{ "username", username },
@@ -226,9 +231,16 @@ namespace safewalk
 			};
 
 			Response response = ServerConnetivityHelper.post("/api/v1/auth/push_signature/", parameters, headers);
+
+			// convert string to stream
+			byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
+			var stream = new MemoryStream(byteArray);
+
+			var jsonResponse = (JsonObject)JsonValue.Load(stream);
+
 			if (response.getResponseCode() == 200)
 			{
-				return new SignatureResponse(response.getResponseCode());
+				return new SignatureResponse(response.getResponseCode(), jsonResponse);
 			}
 			else if (response.getResponseCode() == 400)
 			{

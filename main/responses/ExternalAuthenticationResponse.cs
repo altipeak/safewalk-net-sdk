@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace safewalk
 		#region "constr"
 
 		public ExternalAuthenticationResponse(int httpCode
+									, JsonObject attributes
 									, AuthenticationCode? code
 									, String transactionId
 									, String username
@@ -18,6 +20,7 @@ namespace safewalk
 									, String detail
 									, ReplyCode? replyCode) 
 			: base(httpCode
+				  , attributes
 				  , code
 				  , transactionId
 				  , username

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace safewalk
         private Boolean? locked;
 
         public GetUserResponse(int httpCode
+                            , JsonObject attributes
                             , String username
                             , String firstName
                             , String lastName
@@ -29,7 +31,7 @@ namespace safewalk
                             , String ldapMobilePhone
                             , String ldapEmail
                             , UserStorage? userStorage
-                            , Boolean locked) : base(httpCode)
+                            , Boolean locked) : base(httpCode, attributes)
         {
             this.dbMobilePhone = dbMobilePhone;
             this.dbEmail = dbEmail;

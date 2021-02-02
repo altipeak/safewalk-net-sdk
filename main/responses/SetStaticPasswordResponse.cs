@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,8 @@ namespace safewalk
     public class SetStaticPasswordResponse : BaseResponse
     {
         #region "constr"
-        public SetStaticPasswordResponse(int httpCode) : base(httpCode)
+        public SetStaticPasswordResponse(int httpCode
+                                        , JsonObject attributes) : base(httpCode, attributes)
         {
 
         }

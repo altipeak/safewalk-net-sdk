@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +15,17 @@ namespace safewalk
         protected Dictionary<String, List<String>> errors;
 
         protected const String SEPARATOR = " | ";
+
+        protected JsonObject attributes;
         #endregion
 
         #region "constr"
-        public BaseResponse(int httpCode)
+       
+        public BaseResponse(int httpCode, JsonObject attributes)
         {
             this.httpCode = httpCode;
             this.errors = new Dictionary<string, List<string>>();
+            this.attributes = attributes;
         }
 
         public BaseResponse(int httpCode
@@ -28,9 +33,18 @@ namespace safewalk
         {
             this.httpCode = httpCode;            
             this.errors = errors;
+            this.attributes = new JsonObject();
+        }
+        public BaseResponse(int httpCode
+            , JsonObject attributes
+            , Dictionary<String, List<String>> errors)
+        {
+            this.httpCode = httpCode;
+            this.errors = errors;
+            this.attributes = attributes;
         }
         #endregion
- 
+
         #region "Publics"
         public Dictionary<String, List<String>> getErrors()
         {
@@ -53,6 +67,11 @@ namespace safewalk
             }
 
             return sb.ToString();
+        }
+        
+        public JsonObject getAttributes()
+        {
+            return this.attributes;
         }
         #endregion
 

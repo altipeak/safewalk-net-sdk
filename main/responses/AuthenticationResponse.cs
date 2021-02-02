@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,12 +54,13 @@ namespace safewalk
 		#region "constr"
 		
 		public AuthenticationResponse(int httpCode
-                                    , AuthenticationCode? code
+									, JsonObject attributes
+									, AuthenticationCode? code
                                     , String transactionId
                                     , String username
                                     , String replyMessage
                                     , String detail
-                                    , ReplyCode? replyCode) : base(httpCode)
+                                    , ReplyCode? replyCode) : base(httpCode, attributes)
 		{
 			this.code = code;
 			this.transactionId = transactionId;

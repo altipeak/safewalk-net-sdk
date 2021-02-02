@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ namespace safewalk
 
         #region "constr"
         public CreateUserResponse(int httpCode
+                            , JsonObject attributes
                             , String username
                             , String firstName
                             , String lastName
@@ -37,7 +39,7 @@ namespace safewalk
                             , String dbEmail
                             , String ldapMobilePhone
                             , String ldapEmail
-                            , UserStorage? userStorage) : base(httpCode)
+                            , UserStorage? userStorage) : base(httpCode, attributes)
         {
             this.dbMobilePhone = dbMobilePhone;
             this.dbEmail = dbEmail;

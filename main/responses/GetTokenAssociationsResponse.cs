@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,8 @@ namespace safewalk
 		#region "constr"
 
 		public GetTokenAssociationsResponse(int httpCode
-									, List<TokenAssociation> associations) : base(httpCode)
+									, JsonObject attributes
+									, List<TokenAssociation> associations) : base(httpCode, attributes)
 		{
 			this.associations = associations;
 		}

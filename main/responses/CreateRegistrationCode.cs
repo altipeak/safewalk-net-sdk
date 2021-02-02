@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,14 @@ namespace safewalk
         #endregion
 
         #region "constr"
-        public CreateRegistrationCode(int httpCode) : base(httpCode)
+        public CreateRegistrationCode(int httpCode
+                                    , JsonObject attributes) : base(httpCode, attributes)
         {
             this.Code = null;
         }
         public CreateRegistrationCode(int httpCode
-                                    , String code) : base(httpCode)
+                                    , JsonObject attributes
+                                    , String code) : base(httpCode, attributes)
         {
             this.Code = code;
         }
