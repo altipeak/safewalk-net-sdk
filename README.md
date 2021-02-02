@@ -5,82 +5,52 @@
 <a name="authentication-api"></a>
 ## Authentication API
 
+This project presents the Safewalk Authentication API usage. The available APIs are listed below: 
+
+* Static Password 
+* QR Code 
+* Push Signature 
+* Push Authentication 
+* External Password Authentication
+
+It contains an example client APP, and a .DLL inside, with the methods that perform the authentication against the plataform. 
+
+Note, Inside ISafewalkAuthClient interface there is the description of each method and the required/optional parameters to call them. 
+
 ### Usage
+
 ```csharp
 String host = "https://192.168.1.160";
 long  port = 8443;
 private static string AUTHENTICATION_API_ACCESS_TOKEN = "c4608fc697e844829bb5a27cce13737250161bd0";
-private static string INTERNAL_USERNAME = "internal"; 
-private static string  STATIC_PASSWORD_USERNAME = "internal";
 private static string  FAST_AUTH_USERNAME = "fastauth";
-private static bool BYPASS_SSL_CHECK = false;
-/*push signature */
-private static readonly string HASH = "AAAB9621D3AECD703833646742818CA64739FAEDDC82C726B8C756E89DB6BBBB";
-private static readonly string DATA = "All the data here will be signed. This request was generated from Safewalk API.";
-private static readonly string TITLE = "Sign Transaction";
-private static readonly string BODY = "Push signature triggered from safewalk API";
-        
-serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT, BYPASS_SSL_CHECK);
+
+serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
 SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
 
 /* Standard Authentication */
 AuthenticationResponse response1 = client.Authenticate(INTERNAL_USERNAME, STATIC_PASSWORD_USERNAME);
 
-/* External Authentication */
-AuthenticationResponse response2 = client.AuthenticateExternal(INTERNAL_USERNAME);
-
-/* Session Key Challenge and check status */
-SessionKeyResponse responseA = client.CreateSessionKeyChallenge();
-SessionKeyVerificationResponse responseB = client.VerifySessionKeyStatus(responseA.GetChallenge());
-
-/* Push signature */
-SignatureResponse response3 = client.SendPushSignature(FAST_AUTH_USERNAME, STATIC_PASSWORD_USERNAME, HASH, DATA, TITLE, BODY);
-            
 ```
 * host : The server host.
 * port : The server port.
-* AUTHENTICATION_API_ACCESS_TOKEN : The access token of the system user created to access the authentication-api.
-* INTERNAL_USERNAME: An LDAP or internal user
-* STATIC_PASSWORD_USERNAME : An LDAP or internal user with no licenses asigned and password authentication allowed. 
-* FAST_AUTH_USER : The user registered in safewalk with a Fast:Auth:Sign license.
-* BYPASS_SSL_CHECK : To allow untrusted certificates.
-* HASH: The data hash.
-* DATA: The data to sign. Data or body are required
-* TITLE: The title displayed in the mobile device.
-* BODY: The body of the push. Data or body are required
-* 
-### Authentication Response Examples (AuthenticationResponse class)
+* staticPasswordUserName : An LDAP or internal user with no licenses asigned and password authentication allowed. 
+* fastAuthUserName : The user registered in safewalk with a Fast:Auth:Sign license.
 
-The response below show the result of providing valid credentials
-```
-200 | ACCESS_ALLOWED | admin
-```
+### Authentication API Access Token
+ 
+Before you can start using the Safewalk OAuth2 Restful API you will need to generate an authentication access-token (key) that will allow access to the different API.
+Follow the instructions below to create a system user with keys to access the API:
+* Access the Safewalk Appliance using an ssh client (e.g putty)
+* Execute the following commands to create/update a system user with API keys: 
 
-The response below show the result when the access token is not valid (to fix it, check for the access token in the superadmin console)
-```
-401 | Invalid token
-```
+source /home/safewalk/safewalk-server-venv/bin/activate
+ django-admin.py create_system_user --username <username> --auth-api-accesstoken --settings=gaia_server.settings
 
-The response below show the result when no access token is provided (to fix it, check for the access token in the superadmin console)
-```
-401 | Invalid bearer header. No credentials provided.
-```
-
-The response below show the result when the credentials (username / password) are not valid
-```
-401 | ACCESS_DENIED | Invalid credentials, please make sure you entered your username and up to date password/otp correctly
-```
-
-The response below show the result when the user is locked
-```
-401 | ACCESS_DENIED | The user is locked, please contact your system administrator
-```
-
-The response below show the result when the user is required to enter an OTP
-```
-401 | ACCESS_CHALLENGE | admin | Please enter your OTP code
-```
-
-### For Testing
-1) EXECUTE TEST.EXE
-(optional) edit test.exe.config to change the parameters passed to the test app
+You will see an output similar to the one bellow:
+  authentication-api : 1be0fd6a24fc508f45a184a87f3fc466d0c2603c . Created
+*  Execute the following command if you want to list the existing API access tokens of a user:
+ 
+ source /home/safewalk/safewalk-server-venv/bin/activate django-admin.py
+  create_system_user --username <username> --settings=gaia_server.settings
+* Copy the access-token that was generated for the authentication-api and save it so you’ll be able to use it to make the API calls
