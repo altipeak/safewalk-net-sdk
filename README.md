@@ -7,7 +7,7 @@
 
 This project presents the Safewalk Authentication API usage. The available APIs are listed below: 
 
-* Static Password 
+* User credentials
 * QR Code 
 * Push Signature 
 * Push Authentication 
