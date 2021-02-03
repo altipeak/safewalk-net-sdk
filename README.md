@@ -14,9 +14,9 @@ This project presents the Safewalk Authentication API usage. The available APIs 
 
 ### Import API library into your project
 
-This project contains an example client App in test/Program.cs, and a .dll libray inside /dllUsageExample/dllUsageExample/ folder, with the methods that perform the authentication against the plataform. 
+This project contains an example client App in test/Program.cs, and a .dll libray inside lib/ folder, with the methods that perform the authentication against the plataform. 
 
-To interact with the API, you must add altipeak-safewalk-auth.dll into you project. 
+To interact with the API, you must add altipeak-safewalk-auth.dll and System.Json.dll into you project. 
 
 Note, Inside test/Program.cs there is the description of each method and the required/optional parameters to call them.
 
