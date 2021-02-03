@@ -46,7 +46,7 @@ namespace safewalk
         #endregion
 
         #region "Publics"
-        public Dictionary<String, List<String>> getErrors()
+        public Dictionary<String, List<String>> GetErrors()
         {
             return errors;
         }
@@ -69,7 +69,7 @@ namespace safewalk
             return sb.ToString();
         }
         
-        public Dictionary<String, String> getAttributes()
+        public Dictionary<String, String> GetAttributes()
         {
             return this.attributes;
         }

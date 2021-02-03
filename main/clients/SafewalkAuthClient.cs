@@ -95,11 +95,11 @@ namespace safewalk
 
 		}
 
-		public ExternalAuthenticationResponse AuthenticateExternal(String username)
+		public SecondStepAuthenticationResponse SecondStepAuthentication(String username)
         {
-			return this.ExternalAuthenticate(username, null);
+			return this.SecondStepAuthentication(username, null);
         }
-		public ExternalAuthenticationResponse ExternalAuthenticate(String username, String transactionId)
+		public SecondStepAuthenticationResponse SecondStepAuthentication(String username, String transactionId)
 		{
 			try
 			{
@@ -125,7 +125,7 @@ namespace safewalk
 
 					var jsonResponse = (JsonObject)JsonValue.Load(stream);
 
-					return new ExternalAuthenticationResponse(
+					return new SecondStepAuthenticationResponse(
 						response.getResponseCode()
 						, this.getDict(jsonResponse)
 						, this.getAuthenticationCode(jsonResponse, JSON_AUTH_CODE_FIELD)
@@ -138,7 +138,7 @@ namespace safewalk
 				}
 				else
 				{
-					return new ExternalAuthenticationResponse(response.getResponseCode(), getErrors(response.getContent()));
+					return new SecondStepAuthenticationResponse(response.getResponseCode(), getErrors(response.getContent()));
 				}
 			}
 			catch (Exception exc)

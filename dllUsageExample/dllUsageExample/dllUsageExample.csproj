@@ -13,6 +13,9 @@
     <Reference Include="altipeak-safewalk-auth">
       <HintPath>altipeak-safewalk-auth.dll</HintPath>
     </Reference>
+    <Reference Include="System.Json">
+      <HintPath>System.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

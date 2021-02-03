@@ -91,7 +91,7 @@ namespace dllUsageExample
 
             serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT, SET_BYPASS_SSL_CERTIFICATE);
             SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
-            AuthenticationResponse response1 = client.AuthenticateExternal(username);
+            AuthenticationResponse response1 = client.SecondStepAuthentication(username);
             Console.WriteLine("External Authentication RESPONSE : " + response1);
             Console.WriteLine("External Authentication PROCESS : end");
         }

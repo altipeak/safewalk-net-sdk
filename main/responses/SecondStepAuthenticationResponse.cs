@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace safewalk
 {
-    public class ExternalAuthenticationResponse : AuthenticationResponse
+    public class SecondStepAuthenticationResponse : AuthenticationResponse
     {
 		#region "constr"
 
-		public ExternalAuthenticationResponse(int httpCode
+		public SecondStepAuthenticationResponse(int httpCode
 									, Dictionary<String, String> attributes
 									, AuthenticationCode? code
 									, String transactionId
@@ -26,7 +26,7 @@ namespace safewalk
 		{
 		}
 
-		public ExternalAuthenticationResponse(int httpCode
+		public SecondStepAuthenticationResponse(int httpCode
 			, Dictionary<String, List<String>> errors) 
 			: base(httpCode
 				  , errors)

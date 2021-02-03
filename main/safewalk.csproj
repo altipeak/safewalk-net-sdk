@@ -60,7 +60,7 @@
     <Compile Include="helper\ServerConnectivityHelper.cs" />
     <Compile Include="responses\DeleteTokenAssociation.cs" />
     <Compile Include="responses\DeleteUserResponse.cs" />
-    <Compile Include="responses\ExternalAuthenticationResponse.cs" />
+    <Compile Include="responses\SecondStepAuthenticationResponse.cs" />
     <Compile Include="responses\GetTokenAssociationsResponse.cs" />
     <Compile Include="responses\GetUserResponse.cs" />
     <Compile Include="responses\SessionKeyResponse.cs" />

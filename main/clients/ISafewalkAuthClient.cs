@@ -88,18 +88,18 @@ namespace safewalk
 		/// Notifies Safewalk that the user/password was already validated by an external system. Safewalk will proceed according to the authentication policies defined for the specified user.
 		/// </summary>
 		/// <param name="username"></param>
-		/// <returns><see cref="ExternalAuthenticationResponse"/></returns>
+		/// <returns><see cref="SecondStepAuthenticationResponse"/></returns>
 		/// <exception cref="ConnectivityException" />
-		ExternalAuthenticationResponse AuthenticateExternal(String username);
+		SecondStepAuthenticationResponse SecondStepAuthentication(String username);
 
 		/// <summary>
 		/// Notifies Safewalk that the user/password was already validated by an external system. Safewalk will proceed according to the authentication policies defined for the specified user.
 		/// </summary>
 		/// <param name="username"></param>
 		/// <param name="transactionId">It can be used to link the authentication transaction with a previous authentication transaction.</param>
-		/// <returns><see cref="ExternalAuthenticationResponse"/></returns>
+		/// <returns><see cref="SecondStepAuthenticationResponse"/></returns>
 		/// <exception cref="ConnectivityException" />
-		ExternalAuthenticationResponse ExternalAuthenticate(String username, String transactionId);
+		SecondStepAuthenticationResponse SecondStepAuthentication(String username, String transactionId);
 
 	}
 }
