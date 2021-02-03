@@ -17,41 +17,17 @@ namespace test
         private static readonly String HOST = settings["HOST"];
         private static readonly long   PORT = long.Parse(settings["PORT"]);
         private static readonly bool  SET_BYPASS_SSL_CERTIFICATE = bool.Parse(settings["setBypassSSLCertificate"]);
-        
         private static readonly String AUTHENTICATION_API_ACCESS_TOKEN = settings["AUTHENTICATION_API_ACCESS_TOKEN"];
-        private static readonly String ADMIN_API_ACCESS_TOKEN = settings["ADMIN_API_ACCESS_TOKEN"];
-        private static readonly String INTERNAL_USERNAME = settings["INTERNAL_USERNAME"];
-        private static readonly String INTERNAL_PASSWORD = settings["INTERNAL_PASSWORD"];
-
-        private static readonly String LDAP_USERNAME = settings["LDAP_USERNAME"];
-        private static readonly String LDAP_PASSWORD = settings["LDAP_PASSWORD"];
 
         /*create user*/
-        private static readonly string USERNAME = settings["USER_username"];
-        private static readonly string PASSWORD = settings["USER_password"];
-        private static readonly string FIRSTNAME = settings["USER_firstName"];
-        private static readonly string LASTNAME = settings["USER_lastName"];
-        private static readonly string MOBILEPHONE = settings["USER_mobilePhone"];
-        private static readonly string EMAIL = settings["USER_email"];
-        private static readonly string PARENT = settings["USER_parent"];
-
-        /*update user*/
-        private static readonly string MOBILEPHONE_NEW = settings["USER_mobilePhone_new"];
-        private static readonly string EMAIL_NEW = settings["USER_email_new"];
-
-        /*set static pass*/
-        private static readonly string PASSWORD_NEW = settings["USER_password_new"];
-
-        /*push signature */
-        private static readonly string HASH = settings["hash"];
-        private static readonly string DATA = settings["data"];
-        private static readonly string TITLE = settings["title"];
-        private static readonly string BODY = settings["body"];
 
         #endregion
 
+        #region "vars"
         static private IServerConnectivityHelper serverConnectivityHelper ;
         static private ISafewalkAuthClient client;
+        #endregion
+
         static void Main(string[] args)
         {
             Console.WriteLine("BEGIN TEST");
