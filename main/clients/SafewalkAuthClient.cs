@@ -47,42 +47,51 @@ namespace safewalk
 
 		public AuthenticationResponse Authenticate(String username, String password, String transactionId)
 		{
-			var parameters = new Dictionary<String, String>() {
+			try
+			{
+
+
+				var parameters = new Dictionary<String, String>() {
 				{ "username", username },
 				{ "password", password },
 				{ "transaction_id", transactionId }
 			};
 
 
-			var headers = new Dictionary<String, String>() {
+				var headers = new Dictionary<String, String>() {
 				{ "Authorization", "Bearer " + AccessToken }
 			};
 
-			Response response = ServerConnetivityHelper.post("/api/v1/auth/authenticate/?format=json", parameters, headers);
+				Response response = ServerConnetivityHelper.post("/api/v1/auth/authenticate/?format=json", parameters, headers);
 
-			if (response.getResponseCode() == 200 || response.getResponseCode() == 401)
-			{
-				// convert string to stream
-				byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
-				var stream = new MemoryStream(byteArray);
+				if (response.getResponseCode() == 200 || response.getResponseCode() == 401)
+				{
+					// convert string to stream
+					byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
+					var stream = new MemoryStream(byteArray);
 
-				var jsonResponse = (JsonObject)JsonValue.Load(stream);
+					var jsonResponse = (JsonObject)JsonValue.Load(stream);
 
-				return new AuthenticationResponse(
-					response.getResponseCode()
-				, this.getDict(jsonResponse)
-				, this.getAuthenticationCode(jsonResponse, JSON_AUTH_CODE_FIELD)
-				, this.getString(jsonResponse, JSON_AUTH_TRANSACTION_FIELD)
-				, this.getString(jsonResponse, JSON_AUTH_USERNAME_ID_FIELD)
-				, this.getString(jsonResponse, JSON_AUTH_REPLY_MESSAGE_FIELD)
-				, this.getString(jsonResponse, JSON_AUTH_DETAIL_FIELD)
-				, this.getReplyCode(jsonResponse, JSON_AUTH_REPLY_CODE_FIELD)
-				);
+					return new AuthenticationResponse(
+						response.getResponseCode()
+					, this.getDict(jsonResponse)
+					, this.getAuthenticationCode(jsonResponse, JSON_AUTH_CODE_FIELD)
+					, this.getString(jsonResponse, JSON_AUTH_TRANSACTION_FIELD)
+					, this.getString(jsonResponse, JSON_AUTH_USERNAME_ID_FIELD)
+					, this.getString(jsonResponse, JSON_AUTH_REPLY_MESSAGE_FIELD)
+					, this.getString(jsonResponse, JSON_AUTH_DETAIL_FIELD)
+					, this.getReplyCode(jsonResponse, JSON_AUTH_REPLY_CODE_FIELD)
+					);
+				}
+				else
+				{
+					return new AuthenticationResponse(response.getResponseCode(), getErrors(response.getContent()));
+				}
 			}
-			else
-			{
-				return new AuthenticationResponse(response.getResponseCode(), getErrors(response.getContent()));
-			}
+			catch(Exception exc)
+            {
+				throw new ConnectivityException(exc);
+            }
 
 		}
 
@@ -92,40 +101,49 @@ namespace safewalk
         }
 		public ExternalAuthenticationResponse ExternalAuthenticate(String username, String transactionId)
 		{
-			var parameters = new Dictionary<String, String>() {
-				{ "username", username }, 
+			try
+			{
+
+
+				var parameters = new Dictionary<String, String>() {
+				{ "username", username },
 				{ "transaction_id", transactionId }
 			};
 
 
-			var headers = new Dictionary<String, String>() {
+				var headers = new Dictionary<String, String>() {
 				{ "Authorization", "Bearer " + AccessToken }
 			};
 
-			Response response = ServerConnetivityHelper.post("/api/v1/auth/pswdcheckedauth/?format=json", parameters, headers);
+				Response response = ServerConnetivityHelper.post("/api/v1/auth/pswdcheckedauth/?format=json", parameters, headers);
 
-			if (response.getResponseCode() == 200 || response.getResponseCode() == 401)
-			{
-				// convert string to stream
-				byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
-				var stream = new MemoryStream(byteArray);
+				if (response.getResponseCode() == 200 || response.getResponseCode() == 401)
+				{
+					// convert string to stream
+					byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
+					var stream = new MemoryStream(byteArray);
 
-				var jsonResponse = (JsonObject)JsonValue.Load(stream);
+					var jsonResponse = (JsonObject)JsonValue.Load(stream);
 
-				return new ExternalAuthenticationResponse(
-					response.getResponseCode()
-					, this.getDict(jsonResponse)
-					, this.getAuthenticationCode(jsonResponse, JSON_AUTH_CODE_FIELD)
-					, this.getString(jsonResponse, JSON_AUTH_TRANSACTION_FIELD)
-					, this.getString(jsonResponse, JSON_AUTH_USERNAME_ID_FIELD)
-					, this.getString(jsonResponse, JSON_AUTH_REPLY_MESSAGE_FIELD)
-					, this.getString(jsonResponse, JSON_AUTH_DETAIL_FIELD)
-					, this.getReplyCode(jsonResponse, JSON_AUTH_REPLY_CODE_FIELD)
-					);
+					return new ExternalAuthenticationResponse(
+						response.getResponseCode()
+						, this.getDict(jsonResponse)
+						, this.getAuthenticationCode(jsonResponse, JSON_AUTH_CODE_FIELD)
+						, this.getString(jsonResponse, JSON_AUTH_TRANSACTION_FIELD)
+						, this.getString(jsonResponse, JSON_AUTH_USERNAME_ID_FIELD)
+						, this.getString(jsonResponse, JSON_AUTH_REPLY_MESSAGE_FIELD)
+						, this.getString(jsonResponse, JSON_AUTH_DETAIL_FIELD)
+						, this.getReplyCode(jsonResponse, JSON_AUTH_REPLY_CODE_FIELD)
+						);
+				}
+				else
+				{
+					return new ExternalAuthenticationResponse(response.getResponseCode(), getErrors(response.getContent()));
+				}
 			}
-			else
+			catch (Exception exc)
 			{
-				return new ExternalAuthenticationResponse(response.getResponseCode(), getErrors(response.getContent()));
+				throw new ConnectivityException(exc);
 			}
 		}
 
@@ -136,35 +154,44 @@ namespace safewalk
 		}
 		public SessionKeyResponse CreateSessionKeyChallenge(String transactionId) 
         {
-			var parameters = new Dictionary<String, String>() {
+			try
+			{
+
+
+				var parameters = new Dictionary<String, String>() {
 				{ "transaction_id", transactionId },
 			};
 
 
-			var headers = new Dictionary<String, String>() {
+				var headers = new Dictionary<String, String>() {
 				{ "Authorization", "Bearer " + AccessToken }
 			};
 
-			Response response = ServerConnetivityHelper.post("/api/v1/auth/session_key/?format=json", parameters, headers);
+				Response response = ServerConnetivityHelper.post("/api/v1/auth/session_key/?format=json", parameters, headers);
 
-			if (response.getResponseCode() == 200 )
-			{
-				// convert string to stream
-				byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
-				var stream = new MemoryStream(byteArray);
+				if (response.getResponseCode() == 200)
+				{
+					// convert string to stream
+					byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
+					var stream = new MemoryStream(byteArray);
 
-				var jsonResponse = (JsonObject)JsonValue.Load(stream);
+					var jsonResponse = (JsonObject)JsonValue.Load(stream);
 
-				return new SessionKeyResponse(
-					response.getResponseCode()
-					, this.getDict(jsonResponse)
-					, this.getStringWithoutQuotes(jsonResponse, JSON_AUTH_CHALLENGE)
-					, this.getString(jsonResponse, JSON_AUTH_PURPOSE) 
-					);
+					return new SessionKeyResponse(
+						response.getResponseCode()
+						, this.getDict(jsonResponse)
+						, this.getStringWithoutQuotes(jsonResponse, JSON_AUTH_CHALLENGE)
+						, this.getString(jsonResponse, JSON_AUTH_PURPOSE)
+						);
+				}
+				else
+				{
+					return new SessionKeyResponse(response.getResponseCode(), getErrors(response.getContent()));
+				}
 			}
-			else
+			catch (Exception exc)
 			{
-				return new SessionKeyResponse(response.getResponseCode(), getErrors(response.getContent()));
+				throw new ConnectivityException(exc);
 			}
 		}
 
@@ -176,35 +203,45 @@ namespace safewalk
 			 String sessionKey
 			, String transactionId)
 		{
-			var parameters = new Dictionary<String, String>() {
+
+			try
+			{
+
+
+				var parameters = new Dictionary<String, String>() {
 				{ "transaction_id", transactionId },
 			};
 
 
-			var headers = new Dictionary<String, String>() {
+				var headers = new Dictionary<String, String>() {
 				{ "Authorization", "Bearer " + AccessToken }
 			};
 
-			var link = "/api/v1/auth/session_key/" + sessionKey + "/?format=json";
-			Response response = ServerConnetivityHelper.get(link, parameters, headers);
+				var link = "/api/v1/auth/session_key/" + sessionKey + "/?format=json";
+				Response response = ServerConnetivityHelper.get(link, parameters, headers);
 
-			if (response.getResponseCode() == 200)
-			{
-				// convert string to stream
-				byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
-				var stream = new MemoryStream(byteArray);
+				if (response.getResponseCode() == 200)
+				{
+					// convert string to stream
+					byte[] byteArray = Encoding.UTF8.GetBytes(response.getContent());
+					var stream = new MemoryStream(byteArray);
 
-				var jsonResponse = (JsonObject)JsonValue.Load(stream);
+					var jsonResponse = (JsonObject)JsonValue.Load(stream);
 
-				return new SessionKeyVerificationResponse(
-					response.getResponseCode()
-					, this.getDict(jsonResponse)
-					, this.getString(jsonResponse, JSON_AUTH_CODE) 
-					);
+					return new SessionKeyVerificationResponse(
+						response.getResponseCode()
+						, this.getDict(jsonResponse)
+						, this.getString(jsonResponse, JSON_AUTH_CODE)
+						);
+				}
+				else
+				{
+					return new SessionKeyVerificationResponse(response.getResponseCode(), getErrors(response.getContent()));
+				}
 			}
-			else
+			catch (Exception exc)
 			{
-				return new SessionKeyVerificationResponse(response.getResponseCode(), getErrors(response.getContent()));
+				throw new ConnectivityException(exc);
 			}
 		}
 
@@ -217,7 +254,9 @@ namespace safewalk
 			, String body
 			)
 		{
-			var parameters = new Dictionary<String, String>() {
+			try
+			{
+				var parameters = new Dictionary<String, String>() {
 				{ "username", username },
 				{ "password", password },
 				{ "hash", _hash },
@@ -226,25 +265,30 @@ namespace safewalk
 				{ "body", body }
 			};
 
-			var headers = new Dictionary<String, String>() {
+				var headers = new Dictionary<String, String>() {
 				{ "Authorization", "Bearer " + AccessToken }
 			};
 
-			Response response = ServerConnetivityHelper.post("/api/v1/auth/push_signature/", parameters, headers);
+				Response response = ServerConnetivityHelper.post("/api/v1/auth/push_signature/", parameters, headers);
 
-			 
 
-			if (response.getResponseCode() == 200)
-			{
-				return new SignatureResponse(response.getResponseCode(), new Dictionary<string, string>());
+
+				if (response.getResponseCode() == 200)
+				{
+					return new SignatureResponse(response.getResponseCode(), new Dictionary<string, string>());
+				}
+				else if (response.getResponseCode() == 400)
+				{
+					return new SignatureResponse(response.getResponseCode(), getErrors(response.getContent()));
+				}
+				else
+				{
+					return new SignatureResponse(response.getResponseCode(), getErrors(response.getContent()));
+				}
 			}
-			else if (response.getResponseCode() == 400)
+			catch (Exception exc)
 			{
-				return new SignatureResponse(response.getResponseCode(), getErrors(response.getContent()));
-			}
-			else
-			{
-				return new SignatureResponse(response.getResponseCode(), getErrors(response.getContent()));
+				throw new ConnectivityException(exc);
 			}
 		}
 		#endregion

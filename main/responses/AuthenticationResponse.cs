@@ -11,6 +11,7 @@ namespace safewalk
 		ACCESS_DENIED
 	}
 
+
 	public enum ReplyCode
 	{
 		///<sumary>
