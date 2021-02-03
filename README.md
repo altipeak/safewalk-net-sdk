@@ -3,40 +3,22 @@
 * [Authentication API](#authentication-api)
 
 <a name="authentication-api"></a>
-## Authentication API
 
 This project presents the Safewalk Authentication API usage. The available APIs are listed below: 
 
-* User credentials
+* User Credentials 
 * QR Code 
 * Push Signature 
 * Push Authentication 
-* External Password Authentication
+* 2nd Step Authentication
 
-It contains an example client APP, and a .DLL inside, with the methods that perform the authentication against the plataform. 
+### Import API library into your project
 
-Note, Inside ISafewalkAuthClient interface there is the description of each method and the required/optional parameters to call them. 
+This project contains an example client App in test/Program.cs, and a .dll libray inside /dllUsageExample/dllUsageExample/ folder, with the methods that perform the authentication against the plataform. 
 
-### Usage
+To interact with the API, you must add altipeak-safewalk-auth.dll into you project. 
 
-```csharp
-String host = "https://192.168.1.160";
-long  port = 8443;
-private static string AUTHENTICATION_API_ACCESS_TOKEN = "c4608fc697e844829bb5a27cce13737250161bd0";
-String staticPasswordUserName = "internal";
-String fastAuthUserName = "fastauth";
-
-serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
-SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
-
-/* Standard Authentication */
-AuthenticationResponse response1 = client.Authenticate(fastAuthUserName, staticPasswordUserName);
-
-```
-* host : The server host.
-* port : The server port.
-* staticPasswordUserName : An LDAP or internal user with no licenses asigned and password authentication allowed. 
-* fastAuthUserName : The user registered in safewalk with a Fast:Auth:Sign license.
+Note, Inside test/Program.cs there is the description of each method and the required/optional parameters to call them.
 
 ### Authentication API Access Token
  
@@ -55,3 +37,30 @@ You will see an output similar to the one bellow:
  source /home/safewalk/safewalk-server-venv/bin/activate django-admin.py
   create_system_user --username <username> --settings=gaia_server.settings
 * Copy the access-token that was generated for the authentication-api and save it so you’ll be able to use it to make the API calls
+
+### Usage
+
+```csharp
+string AUTHENTICATION_API_ACCESS_TOKEN = "c4608fc697e844829bb5a27cce13737250161bd0";
+String host = "https://safewalk_address...";
+long  port = 8445;
+
+serverConnectivityHelper = new ServerConnectivityHelper(HOST, PORT);
+
+SafewalkAuthClient client = new SafewalkAuthClient(serverConnectivityHelper, AUTHENTICATION_API_ACCESS_TOKEN);
+
+// Example 1: User credentials
+AuthenticationResponse response1 = client.Authenticate("username1", "12345");
+
+// Example 2: Push Signature
+SignatureResponse response2 = client.sendPushSignature("username2","abcde", "A160E4F805C51261541F0AD6BC618AE10BEB3A30786A099CE67DBEFD4F7F929F","All the data here will be signed. This request was generated from Safewalk API.","Sign Transaction","Push signature triggered from safewalk API");
+System.out.println("PUSH SIGNATURE RESPONSE OPTION 1: " + response2);
+```
+* host : The server host.
+* port : The server port.
+* serverConnectivityHelper: A class to handle the connection with Safewalk server.
+
+### Documentation
+
+For further understanding of this API, please check the documents into the /doc folder of this project.
+
