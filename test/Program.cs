@@ -18,9 +18,7 @@ namespace test
         private static readonly long   PORT = long.Parse(settings["PORT"]);
         private static readonly bool  SET_BYPASS_SSL_CERTIFICATE = bool.Parse(settings["setBypassSSLCertificate"]);
         private static readonly String AUTHENTICATION_API_ACCESS_TOKEN = settings["AUTHENTICATION_API_ACCESS_TOKEN"];
-
-        /*create user*/
-
+         
         #endregion
 
         #region "vars"
