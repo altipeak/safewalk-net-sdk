@@ -99,7 +99,7 @@ namespace safewalk.helper
 				request.ContentType = "application/x-www-form-urlencoded";
 				request.Timeout = DEFAULT_TIMEOUT;
 				request.ReadWriteTimeout = DEFAULT_TIMEOUT;
-				request.Accept = "application/json, text/javascript, */*; q=0.01";
+				request.Accept = "application/json";
 
 				foreach (KeyValuePair<string, string> header in headers) {
 					request.Headers.Add(header.Key, header.Value);    

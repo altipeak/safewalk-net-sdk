@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 using safewalk;
 using safewalk.helper;
@@ -46,8 +42,11 @@ namespace test
         /// On this example a user without licenses is recommended to test one step / static password authentication.
         /// </summary>
          private static void TestUserCredentialsAuthenticationMethod() {
-             AuthenticationResponse response1 = client.Authenticate("userName", "12345");
-             Console.WriteLine("USER CREDENTIALS AUTHENTICATION RESPONSE : " + response1 + " METHOD " + response1.GetAttributes()["auth-method"]);
+            AuthenticationResponse response1 = client.Authenticate("userName", "12345");
+            if (response1.GetAttributes().ContainsKey("auth-method"))
+                Console.WriteLine("USER CREDENTIALS AUTHENTICATION RESPONSE : " + response1 + " METHOD " + response1.GetAttributes()["auth-method"]);
+            else
+                Console.WriteLine("USER CREDENTIALS AUTHENTICATION RESPONSE : " + response1);
         }
 
         /// <summary>
