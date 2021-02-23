@@ -3,6 +3,7 @@
 * [Authentication API](#authentication-api)
 
 <a name="authentication-api"></a>
+## Authentication API
 
 This project presents the Safewalk Authentication API usage. The available APIs are listed below: 
 
