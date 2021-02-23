@@ -2,7 +2,6 @@
 
 * [Authentication API](#authentication-api)
 
-<a name="authentication-api"></a>
 ## Authentication API
 
 ### Usage
