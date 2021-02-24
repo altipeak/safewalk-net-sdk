@@ -18,7 +18,8 @@ namespace safewalk.helper
 {
 	public class ServerConnectivityHelper : IServerConnectivityHelper
 	{
-		private static readonly  int DEFAULT_TIMEOUT = 5000; //30000;
+		private static readonly int DEFAULT_TIMEOUT = 30000;
+		private readonly int readWriteTimeout;
     
 		private readonly String host;
 		private readonly long port;
@@ -29,6 +30,7 @@ namespace safewalk.helper
 			this.host = host;
 			this.port = port;
 			this.setBypassSSLCertificate = false;
+			this.readWriteTimeout = DEFAULT_TIMEOUT;
 		}
 
 		public ServerConnectivityHelper(String host, long port, bool byPassSSLCertificate)
@@ -36,6 +38,15 @@ namespace safewalk.helper
 			this.host = host;
 			this.port = port;
 			this.setBypassSSLCertificate = byPassSSLCertificate;
+			this.readWriteTimeout = DEFAULT_TIMEOUT;
+		}
+
+		public ServerConnectivityHelper(String host, long port, bool byPassSSLCertificate, int readWriteTimeout)
+		{
+			this.host = host;
+			this.port = port;
+			this.setBypassSSLCertificate = byPassSSLCertificate;
+			this.readWriteTimeout = readWriteTimeout;
 		}
 		#region "Publics"
 		public Response post(String path, Dictionary<string,string> parameters, Dictionary<string,string> headers) 
@@ -97,8 +108,8 @@ namespace safewalk.helper
                     	break;
 				}
 				request.ContentType = "application/x-www-form-urlencoded";
-				request.Timeout = DEFAULT_TIMEOUT;
-				request.ReadWriteTimeout = DEFAULT_TIMEOUT;
+				request.Timeout = DEFAULT_TIMEOUT;				
+				request.ReadWriteTimeout = this.readWriteTimeout;
 				request.Accept = "application/json";
 
 				foreach (KeyValuePair<string, string> header in headers) {
